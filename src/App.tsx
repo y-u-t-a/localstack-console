@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 export default class App extends React.Component {
   render() {
     const credential = new AWS.Credentials({
-      accessKeyId: 'akid', secretAccessKey: 'secret', sessionToken: 'session'
+      accessKeyId: 'dummy', secretAccessKey: 'dummy', sessionToken: 'dummy'
     });
     const ec2 = new AWS.EC2({endpoint: "http://localhost:4566", region: "us-east-1", credentials: credential})
     ec2.describeVpcs(function(err, data) {
