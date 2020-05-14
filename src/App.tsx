@@ -3,9 +3,6 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Top from './top/Top'
 import Users from './users/Users'
 import AWS from 'aws-sdk'
-// react-bootstrap を使うために import する
-// App で import することで子コンポーネントでも有効になる
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class App extends React.Component {
   render() {
