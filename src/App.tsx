@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import Top from './top/Top'
-import Users from './users/Users'
 import AWS from 'aws-sdk'
 
 export default class App extends React.Component {
@@ -20,7 +19,6 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <Route exact path='/' component={Top} />
-        <Route exact path='/users' component={Users} />
       </BrowserRouter>
     )
   }
