@@ -1,5 +1,5 @@
 import React from 'react'
-import AwsClients from '../common/AwsServices'
+import AwsClients from '../common/AwsClients'
 
 export default class Vpc extends React.Component {
   render() {
