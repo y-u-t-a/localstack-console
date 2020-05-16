@@ -1,5 +1,5 @@
 import React from 'react'
-import AwsServices from '../common/AwsServices'
+import AwsClients from '../common/AwsServices'
 
 export default class Vpc extends React.Component {
   render() {
@@ -13,7 +13,7 @@ export default class Vpc extends React.Component {
 }
 
 function getVpc() {
-  AwsServices.ec2.describeVpcs((err, data) => {
+  AwsClients.ec2.describeVpcs((err, data) => {
     if (err) {
       console.log(err, err.stack)
     } else {
