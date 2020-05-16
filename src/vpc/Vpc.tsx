@@ -1,5 +1,5 @@
 import React from 'react'
-import AWS from 'aws-sdk'
+import AwsServices from '../common/AwsServices'
 
 export default class Vpc extends React.Component {
   render() {
@@ -13,18 +13,8 @@ export default class Vpc extends React.Component {
 }
 
 function getVpc() {
-  const credential = new AWS.Credentials({
-    accessKeyId: 'dummy',
-    secretAccessKey: 'dummy',
-    sessionToken: 'dummy'
-  })
-  const ec2 = new AWS.EC2({
-    endpoint: "http://localhost:4566",
-    region: "us-east-1",
-    credentials: credential
-  })
-  ec2.describeVpcs(function(err, data) {
-    if (err) { 
+  AwsServices.ec2.describeVpcs((err, data) => {
+    if (err) {
       console.log(err, err.stack)
     } else {
       console.log(data.Vpcs)
