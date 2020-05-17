@@ -1,8 +1,10 @@
 import React from 'react'
 import AwsClients from '../common/AwsClients'
+import Const from '../common/Const'
 
 export default class Vpc extends React.Component {
   render() {
+    document.title = `VPC | ${ Const.BASE_PAGE_TITLE }`
     getVpc()
     return (
       <div>
