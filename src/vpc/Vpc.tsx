@@ -14,12 +14,7 @@ export default class Vpc extends React.Component {
   }
 }
 
-function getVpc() {
-  AwsClients.ec2.describeVpcs((err, data) => {
-    if (err) {
-      console.log(err, err.stack)
-    } else {
-      console.log(data.Vpcs)
-    }
-  })
+async function getVpc() {
+  const vpcInfo = await AwsClients.ec2.describeVpcs().promise()
+  console.log(vpcInfo.Vpcs![0])
 }
