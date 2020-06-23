@@ -1,6 +1,6 @@
 {
 	"name": "Node & TypeScript",
-	"dockerFile": "Dockerfile",
+	"image": "node:14.3.0-alpine",
 	"extensions": [
 		"ms-vscode.vscode-typescript-tslint-plugin"
 	],
@@ -9,5 +9,5 @@
 	// VSCode リファレンス : https://code.visualstudio.com/docs/remote/containers-advanced#_update-the-mount-consistency-to-delegated-for-macos
 	"remote.containers.workspaceMountConsistency": "delegated",
 	// コンテナが作成された時に実行するコマンド
-	"postCreateCommand": "npm install",
+	"postCreateCommand": "apk update && apk add --no-cache git && npm install",
 }
