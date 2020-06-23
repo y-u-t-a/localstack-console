@@ -7,9 +7,9 @@ import App from './App'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <NavigationBar />
     <App />
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root')
 )
