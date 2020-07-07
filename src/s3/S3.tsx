@@ -17,15 +17,14 @@ export default class S3 extends React.Component<Props, State> {
       s3Buckets: []
     }
   }
-  componentDidMount() {
+  async componentDidMount() {
     // 初回の検索結果は componentDidMount でセットする
     this.setState({
-      s3Buckets: ["a", "b", "c"]
+      s3Buckets: await getS3Buckets()
     })
   }
   render() {
     document.title = `S3 | ${ Const.BASE_PAGE_TITLE }`
-    getS3Buckets()
     return (
       <div>
         <h3>S3 バケット一覧</h3>
@@ -35,7 +34,8 @@ export default class S3 extends React.Component<Props, State> {
   }
 }
 
-async function getS3Buckets() {
+async function getS3Buckets(): Promise<Array<String>> {
   const s3Buckets = await AwsClients.s3.listBuckets().promise()
-  console.log(s3Buckets.Buckets!)
+  const s3BucketsName = s3Buckets.Buckets!.map(s3Bucket => s3Bucket.Name!)
+  return s3BucketsName
 }
