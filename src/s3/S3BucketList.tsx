@@ -1,7 +1,7 @@
 import React from 'react'
 
 export type Props = {
-  s3Buckets: String[]
+  s3Buckets: Array<String>
 }
 
 export default class S3BucketList extends React.Component<Props> {
