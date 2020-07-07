@@ -1,0 +1,13 @@
+version: "3"
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - 4566:4566
+  node:
+    image: node:14.3.0-alpine
+    ports: 
+      - 3000:3000
+    tty: true
+    volumes: 
+      - ../:/aws-mock

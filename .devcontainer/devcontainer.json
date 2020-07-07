@@ -1,6 +1,8 @@
 {
 	"name": "Node & TypeScript",
-	"image": "node:14.3.0-alpine",
+	"dockerComposeFile": "./docker-compose.yml",
+	"service": "node",
+	"workspaceFolder": "/aws-mock",
 	"extensions": [
 		"ms-vscode.vscode-typescript-tslint-plugin"
 	],
@@ -10,4 +12,5 @@
 	"remote.containers.workspaceMountConsistency": "delegated",
 	// コンテナが作成された時に実行するコマンド
 	"postCreateCommand": "apk update && apk add --no-cache git && npm install",
+	"shutdownAction": "stopCompose",
 }
