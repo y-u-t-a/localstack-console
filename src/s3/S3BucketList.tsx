@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type Props = {
+interface Props {
   s3Buckets: Array<String>
 }
 
