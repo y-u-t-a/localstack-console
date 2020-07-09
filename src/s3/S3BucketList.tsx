@@ -1,6 +1,7 @@
 import React from 'react'
 import AwsClients from '../common/AwsClients'
 import { S3 } from 'aws-sdk'
+import { Table, FormCheck } from 'react-bootstrap'
 
 interface Props {}
 
@@ -23,17 +24,28 @@ export default class S3BucketList extends React.Component<Props, State> {
     })
   }
   render() {
-    const listElm = this.state.s3Buckets.map(s3Bucket => {
+    const tabeleRows = this.state.s3Buckets.map(s3Bucket => {
       return (
-        <li key={s3Bucket.Name}>
-          <a href={document.URL + "/" + s3Bucket.Name}>{s3Bucket.Name}</a>
-        </li>
+        <tr>
+          <td><FormCheck /></td>
+          <td>{s3Bucket.Name}</td>
+          <td>{s3Bucket.CreationDate!.toLocaleString()}</td>
+        </tr>
       )
     })
     return (
-      <ul>
-        {listElm}
-      </ul>
+      <Table>
+        <thead>
+          <tr>
+            <td><FormCheck /></td>
+            <td>バケット名</td>
+            <td>作成日時</td>
+          </tr>
+        </thead>
+        <tbody>
+          {tabeleRows}
+        </tbody>
+      </Table>
     )
   }
 }
