@@ -1,10 +1,11 @@
 import React from 'react'
 import AwsClients from '../common/AwsClients'
+import { S3 } from 'aws-sdk'
 
 interface Props {}
 
 interface State {
-  s3Buckets: Array<String>
+  s3Buckets: Array<S3.Bucket>
 }
 
 export default class S3BucketList extends React.Component<Props, State> {
@@ -24,8 +25,8 @@ export default class S3BucketList extends React.Component<Props, State> {
   render() {
     const listElm = this.state.s3Buckets.map(s3Bucket => {
       return (
-        <li key={s3Bucket.toString()}>
-          <a href={document.URL + "/" + s3Bucket.toString()}>{s3Bucket}</a>
+        <li key={s3Bucket.Name}>
+          <a href={document.URL + "/" + s3Bucket.Name}>{s3Bucket.Name}</a>
         </li>
       )
     })
@@ -40,8 +41,7 @@ export default class S3BucketList extends React.Component<Props, State> {
 /**
  * S3 バケットリストを参照し、S3 バケットの名前の配列を返却
  */
-async function getS3Buckets(): Promise<Array<String>> {
+async function getS3Buckets(): Promise<Array<S3.Bucket>> {
   const s3Buckets = await AwsClients.s3.listBuckets().promise()
-  const s3BucketsName = s3Buckets.Buckets!.map(s3Bucket => s3Bucket.Name!)
-  return s3BucketsName
+  return s3Buckets.Buckets!
 }
