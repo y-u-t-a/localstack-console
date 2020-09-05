@@ -8,7 +8,7 @@ export default class S3 extends React.Component {
     document.title = `S3 | ${ Const.BASE_PAGE_TITLE }`
     return (
       <Container>
-        <h3>S3 バケット一覧</h3>
+        <h1>S3 バケット一覧</h1>
         <S3BucketList />
       </Container>
     )
