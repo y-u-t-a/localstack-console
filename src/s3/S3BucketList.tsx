@@ -24,9 +24,9 @@ export default class S3BucketList extends React.Component<Props, State> {
     })
   }
   render() {
-    const tabeleRows = this.state.s3Buckets.map(s3Bucket => {
+    const tabeleRows = this.state.s3Buckets.map((s3Bucket, index) => {
       return (
-        <tr>
+        <tr key={index}>
           <td><FormCheck /></td>
           <td>{s3Bucket.Name}</td>
           <td>{s3Bucket.CreationDate!.toLocaleString()}</td>
