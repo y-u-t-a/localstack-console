@@ -31,6 +31,7 @@ export default class AwsClients {
   public static s3 = new AWS.S3({
     endpoint: AwsClients.endpoint,
     region: AwsClients.region,
-    credentials: AwsClients.credential
+    credentials: AwsClients.credential,
+    s3ForcePathStyle: true,
   })
 }
