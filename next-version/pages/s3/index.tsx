@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import { S3 } from '../../utils/aws-sdk-client'
+import { S3Client } from '../../utils/aws-sdk-client'
 
 import { S3Bucket } from '../../interfaces'
 import Layout from '../../components/Layout'
@@ -22,7 +22,7 @@ const S3Page = (props:Props) => (
 )
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await new S3().listBuckets().promise()
+  const response = await S3Client.listBuckets().promise()
   const s3Buckets:S3Bucket[] = response.Buckets!.map( bucket => {
     return { Name:bucket.Name!, CreationDate: bucket.CreationDate!.toLocaleString() }
   })

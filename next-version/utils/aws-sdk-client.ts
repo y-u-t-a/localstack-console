@@ -6,35 +6,10 @@ const mockConfig = {
   credential : new AWS.Credentials({
     accessKeyId: 'dummy',
     secretAccessKey: 'dummy',
-    sessionToken: 'dummy'
-  })
+    sessionToken: 'dummy',
+  }),
+  s3ForcePathStyle: true,
 }
 
-export class S3 extends AWS.S3 {
-  constructor() {
-    if (process.env.TARGET === 'mock') {
-      super({
-        endpoint: mockConfig.endpoint,
-        region: mockConfig.region,
-        credentials: mockConfig.credential,
-        s3ForcePathStyle: true,
-      })
-    } else {
-      super()
-    }
-  }
-}
-
-export class EC2 extends AWS.EC2 {
-  constructor() {
-    if (process.env.TARGET === 'mock') {
-      super({
-        endpoint: mockConfig.endpoint,
-        region: mockConfig.region,
-        credentials: mockConfig.credential,
-      })
-    } else {
-      super()
-    }
-  }
-}
+export const S3Client = new AWS.S3(process.env.TARGET === 'mock' ? mockConfig : {})
+export const EC2Client = new AWS.EC2(process.env.TARGET === 'mock' ? mockConfig : {})
