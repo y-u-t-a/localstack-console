@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import { S3 } from 'aws-sdk'
+import { S3 } from '../../utils/aws-sdk-client'
 
 import { S3Bucket } from '../../interfaces'
 import Layout from '../../components/Layout'
