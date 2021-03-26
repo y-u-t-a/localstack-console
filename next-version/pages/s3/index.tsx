@@ -24,7 +24,7 @@ const S3Page = (props:Props) => (
 export const getServerSideProps: GetServerSideProps = async () => {
   const response = await new S3().listBuckets().promise()
   const s3Buckets:S3Bucket[] = response.Buckets!.map( bucket => {
-    return { Name:bucket.Name!, CreationDate: bucket.CreationDate!.toString() }
+    return { Name:bucket.Name!, CreationDate: bucket.CreationDate!.toLocaleString() }
   })
   return {
     props: { s3Buckets }
