@@ -37,7 +37,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     {children}
     <footer>
       <hr />
-      <Link href="https://github.com/y-u-t-a/aws-mock/tree/master">
+      <Link href="https://github.com/y-u-t-a/aws-mock">
         GitHub
       </Link>
     </footer>
