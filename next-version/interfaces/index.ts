@@ -8,3 +8,8 @@ export type User = {
   id: number
   name: string
 }
+
+export type S3Bucket = {
+  Name : string,
+  CreationDate : string
+}
