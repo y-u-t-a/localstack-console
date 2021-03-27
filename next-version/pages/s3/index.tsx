@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next'
+import Link from 'next/link'
 import { S3 } from '../../utils/aws-sdk-client'
 
 import { S3Bucket } from '../../interfaces'
@@ -14,7 +15,12 @@ const S3Page = (props:Props) => (
     <ul>
     {props.s3Buckets.map((s3Bucket) => (
       <li key={s3Bucket.Name}>
-        <p>{s3Bucket.Name + " " + s3Bucket.CreationDate}</p>
+        <p>
+          <Link href={`/s3/${s3Bucket.Name}`}>
+            <a>{s3Bucket.Name}</a>
+          </Link>
+          {" " + s3Bucket.CreationDate}
+        </p>
       </li>
     ))}
     </ul>
