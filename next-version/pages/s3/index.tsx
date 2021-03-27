@@ -16,7 +16,10 @@ const S3Page = (props:Props) => (
     {props.s3Buckets.map((s3Bucket) => (
       <li key={s3Bucket.Name}>
         <p>
-          <Link href={`/s3/${s3Bucket.Name}`}>
+          <Link href={{
+            pathname: '/s3/[bucket]',
+            query: { bucket: s3Bucket.Name}
+          }}>
             <a>{s3Bucket.Name}</a>
           </Link>
           {" " + s3Bucket.CreationDate}
