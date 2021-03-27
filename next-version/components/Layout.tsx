@@ -2,6 +2,8 @@ import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 
+import BreadcrumbNavigation from './BreadcrumbNavigation'
+
 type Props = {
   children?: ReactNode
   title?: string
@@ -25,6 +27,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
         </Link>
       </nav>
     </header>
+    <BreadcrumbNavigation />
     {children}
     <footer>
       <hr />
