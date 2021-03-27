@@ -1,9 +1,9 @@
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
-import { S3 } from '../../utils/aws-sdk-client'
 
-import { S3Bucket } from '../../interfaces'
 import Layout from '../../components/Layout'
+import { S3Bucket } from '../../interfaces'
+import { S3 } from '../../utils/aws-sdk-client'
 
 type Props = {
   s3Buckets: S3Bucket[]
