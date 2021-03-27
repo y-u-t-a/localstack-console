@@ -11,5 +11,5 @@ const mockConfig = {
   s3ForcePathStyle: true,
 }
 
-export const S3Client = new AWS.S3(process.env.TARGET === 'mock' ? mockConfig : {})
-export const EC2Client = new AWS.EC2(process.env.TARGET === 'mock' ? mockConfig : {})
+export const S3 = new AWS.S3(process.env.TARGET === 'mock' ? mockConfig : {})
+export const EC2 = new AWS.EC2(process.env.TARGET === 'mock' ? mockConfig : {})
