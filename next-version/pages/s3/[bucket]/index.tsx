@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 
-import { S3 } from '../../../utils/aws-sdk-client'
+import { getObjectList } from '../../../utils/s3'
 import { S3Object } from '../../../interfaces'
 import Layout from '../../../components/Layout'
 
@@ -26,14 +26,7 @@ const S3BucketPage = (props: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const bucket = context.query.bucket
-  const response = await S3.listObjectsV2({ Bucket: bucket.toString() }).promise()
-  const s3Objects:S3Object[] = response.Contents!.map( content => {
-    return {
-        Key: content.Key!,
-        Size: content.Size!,
-        LastModified: content.LastModified!.toLocaleString()
-    }
-  })
+  const s3Objects = await getObjectList(bucket.toString())
   return {
     props: { s3Objects, bucket }
   }
