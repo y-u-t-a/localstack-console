@@ -12,6 +12,9 @@ type Props = {
 const S3Page = (props:Props) => (
   <Layout title="S3 | AWS Mock">
     <h1>S3 バケット一覧</h1>
+    <Link href='/s3/new'>
+      <button>バケット作成</button>
+    </Link>
     <ul>
     {props.s3Buckets.map((s3Bucket) => (
       <li key={s3Bucket.Name}>

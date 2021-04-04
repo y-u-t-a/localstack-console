@@ -1,6 +1,6 @@
 export type S3Bucket = {
   Name : string,
-  CreationDate : string,
+  CreationDate? : string,
 }
 
 export type S3Object = {
