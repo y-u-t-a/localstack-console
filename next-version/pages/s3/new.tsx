@@ -7,6 +7,7 @@ import { S3Bucket } from '../../interfaces'
 const NewS3BucketPage = () => {
   const router = useRouter()
   const [bucketName, setbucketName] = useState('')
+  const [error, setError] = useState('')
   const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
     switch (event.target.name) {
       case 'bucket-name':
@@ -29,7 +30,7 @@ const NewS3BucketPage = () => {
         router.push('/s3')
       } else {
         res.json().then(json => {
-          alert(json.message)
+          setError(json.message)
         })
       }
     })
@@ -45,6 +46,7 @@ const NewS3BucketPage = () => {
         />
         <button type='submit'>作成</button>
       </form>
+      <p>{error}</p>
     </Layout>
   )
 }
