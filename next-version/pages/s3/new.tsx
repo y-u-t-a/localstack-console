@@ -43,6 +43,7 @@ const NewS3BucketPage = () => {
           name='bucket-name'
           value={bucketName}
           onChange={handleChange}
+          autoFocus
         />
         <button type='submit'>作成</button>
       </form>
