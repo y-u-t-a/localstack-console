@@ -17,23 +17,21 @@ const NewS3BucketPage = () => {
         break
     }
   }
-  const handleSubmit = (event:FormEvent) => {
+  const handleSubmit = async (event:FormEvent) => {
     event.preventDefault()
-    const body:S3Bucket = {
+    const requestBody:S3Bucket = {
       Name: bucketName
     }
-    fetch('/api/s3/new', {
+    const response = await fetch('/api/s3/new', {
       'method': 'POST',
-      'body': JSON.stringify(body)
-    }).then(res => {
-      if (res.ok) {
-        router.push('/s3')
-      } else {
-        res.json().then(json => {
-          setError(json.message)
-        })
-      }
+      'body': JSON.stringify(requestBody)
     })
+    if (response.ok) {
+      router.push('/s3')
+    } else {
+      const responseBody = await response.json()
+      setError(responseBody.message)
+    }
   }
   return (
     <Layout title="S3 | AWS Mock">
