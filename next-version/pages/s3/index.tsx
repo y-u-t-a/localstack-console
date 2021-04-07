@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Layout from '../../components/Layout'
 import { S3Bucket } from '../../interfaces'
