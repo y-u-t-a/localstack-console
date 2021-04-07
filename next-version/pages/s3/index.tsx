@@ -1,43 +1,44 @@
-import { GetServerSideProps } from 'next'
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 import Layout from '../../components/Layout'
 import { S3Bucket } from '../../interfaces'
-import { getBucketList } from '../../utils/s3'
 
-type Props = {
-  s3Buckets: S3Bucket[]
-}
-
-const S3Page = (props:Props) => (
-  <Layout title="S3 | AWS Mock">
-    <h1>S3 バケット一覧</h1>
-    <Link href='/s3/new'>
-      <button>バケット作成</button>
-    </Link>
-    <ul>
-    {props.s3Buckets.map((s3Bucket) => (
-      <li key={s3Bucket.Name}>
-        <p>
-          <Link href={{
-            pathname: '/s3/[bucket]',
-            query: { bucket: s3Bucket.Name}
-          }}>
-            <a>{s3Bucket.Name}</a>
-          </Link>
-          {" " + s3Bucket.CreationDate}
-        </p>
-      </li>
-    ))}
-    </ul>
-  </Layout>
-)
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const s3Buckets:S3Bucket[] = await getBucketList()
-  return {
-    props: { s3Buckets }
+const S3Page = () => {
+  const [s3Buckets, setS3Buckets] = useState<S3Bucket[]>([])
+  const fetchS3Buckets = async () => {
+    const response = await fetch('/api/s3')
+    const body = await response.json()
+    setS3Buckets(body)
   }
+  useEffect(() => {
+    fetchS3Buckets()
+  }, [])
+  return (
+    <Layout title="S3 | AWS Mock">
+      <h1>S3 バケット一覧</h1>
+      <Link href='/s3/new'>
+        <button>バケット作成</button>
+      </Link>
+      <button onClick={fetchS3Buckets}>再読み込み</button>
+      <ul>
+      {s3Buckets.map((s3Bucket) => (
+        <li key={s3Bucket.Name}>
+          <p>
+            <Link href={{
+              pathname: '/s3/[bucket]',
+              query: { bucket: s3Bucket.Name}
+            }}>
+              <a>{s3Bucket.Name}</a>
+            </Link>
+            {" " + s3Bucket.CreationDate}
+          </p>
+        </li>
+      ))}
+      </ul>
+    </Layout>
+  )
 }
 
 export default S3Page
