@@ -1,5 +1,5 @@
 import { S3 } from './aws-sdk-client'
-import { S3Bucket, S3Object } from '../interfaces'
+import { S3Bucket, S3Object } from '../interfaces/s3'
 
 export const getBucketList = async () => {
   const response = await S3.listBuckets().promise()

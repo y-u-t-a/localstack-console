@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import Layout from '../../components/Layout'
-import { S3Bucket } from '../../interfaces'
+import { S3Bucket } from '../../interfaces/s3'
 
 const S3Page = () => {
   const [s3Buckets, setS3Buckets] = useState<S3Bucket[]>([])

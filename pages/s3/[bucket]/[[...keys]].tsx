@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 
 import { getObjectList } from '../../../utils/s3'
-import { S3Object } from '../../../interfaces'
+import { S3Object } from '../../../interfaces/s3'
 import Layout from '../../../components/Layout'
 
 type Props = {
