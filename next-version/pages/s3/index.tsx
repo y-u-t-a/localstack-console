@@ -27,7 +27,7 @@ const S3Page = () => {
           <p>
             <Link href={{
               pathname: '/s3/[bucket]',
-              query: { bucket: s3Bucket.Name}
+              query: { bucket: s3Bucket.Name }
             }}>
               <a>{s3Bucket.Name}</a>
             </Link>
