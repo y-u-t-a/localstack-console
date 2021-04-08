@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next'
+import Link from 'next/link'
 
 import { getObjectList } from '../../../utils/s3'
 import { S3Object } from '../../../interfaces'
@@ -16,7 +17,15 @@ const S3BucketPage = (props: Props) => {
       <ul>
       { props.s3Objects.map( s3Object => (
         <li key={s3Object.Key}>
-          <p>{ `${s3Object.Key} ${s3Object.Size} ${s3Object.LastModified}` }</p>
+          <p>
+            <Link href={{
+              pathname: '/s3/[bucket]/[[...keys]]',
+              query: { bucket: props.bucket, keys: s3Object.Key.split('/') }
+            }}>
+              <a>{s3Object.DisplayObjectName}</a>
+            </Link>
+            { ` ${s3Object.Size} ${s3Object.LastModified}` }
+            </p>
         </li>
       ))}
       </ul>
@@ -25,8 +34,9 @@ const S3BucketPage = (props: Props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const bucket = context.query.bucket
-  const s3Objects = await getObjectList(bucket.toString())
+  const bucket = context.query.bucket as string
+  const keys = context.query.keys as string[] || []
+  const s3Objects = await getObjectList(bucket, keys.join('/'))
   return {
     props: { s3Objects, bucket }
   }

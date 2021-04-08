@@ -14,12 +14,19 @@ export const getObjectList = async (bucket:string, prefix:string = '') => {
     Bucket: bucket,
     Prefix: prefix
   }).promise()
+  const filterPrefix = prefix.length === 0? '' : prefix + '/'
   const s3Objects:S3Object[] = response.Contents!.map( content => {
     return {
         Key: content.Key!,
+        DisplayObjectName: content.Key!.replace(filterPrefix, ''),
         Size: content.Size!,
         LastModified: content.LastModified!.toLocaleString()
     }
   })
-  return s3Objects
+  const filteredS3Objects = s3Objects.filter(s3Object => {
+    return s3Object.Key.startsWith(filterPrefix)
+      && s3Object.Key != filterPrefix
+      && s3Object.Key.replace(filterPrefix, '').split('/').length <= 2
+  })
+  return filteredS3Objects
 }

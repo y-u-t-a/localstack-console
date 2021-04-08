@@ -5,6 +5,7 @@ export type S3Bucket = {
 
 export type S3Object = {
   Key: string,
+  DisplayObjectName: string,
   Size: number,
   LastModified: string,
 }
