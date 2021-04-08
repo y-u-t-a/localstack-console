@@ -10,7 +10,7 @@ type Props = {
   s3Objects: S3Object[],
 }
 
-const S3BucketPage = (props: Props) => {
+const S3ObjectPage = (props: Props) => {
   return (
     <Layout title={`S3 - ${ props.bucket } | AWS Mock`}>
       <h1>バケット: { props.bucket }</h1>
@@ -42,4 +42,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-export default S3BucketPage
+export default S3ObjectPage
