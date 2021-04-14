@@ -24,9 +24,10 @@ export const getObjectList = async (bucket:string, prefix:string = '') => {
     }
   })
   const filteredS3Objects = s3Objects.filter(s3Object => {
-    return s3Object.Key.startsWith(filterPrefix)
-      && s3Object.Key != filterPrefix
-      && s3Object.Key.replace(filterPrefix, '').split('/').length <= 2
+    // 「prefix に至るフォルダ自身」と「prefix を除いた Key に / の後に文字列が続く Key」を除外することで
+    // prefix と同一レベルのオブジェクトをフィルタリングできる
+    return s3Object.Key != filterPrefix
+      && s3Object.Key.replace(filterPrefix, '').match(/\/.+/g) == null
   })
   return filteredS3Objects
 }
