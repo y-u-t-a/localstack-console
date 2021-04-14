@@ -1,9 +1,10 @@
 import { GetServerSideProps } from 'next'
-import Link from 'next/link'
 
 import { getObjectList } from '../../../utils/s3'
 import { S3Object } from '../../../interfaces/s3'
 import Layout from '../../../components/Layout'
+import S3ObjectDetail from '../../../components/s3/S3ObjectDetail'
+import S3ObjectList from '../../../components/s3/S3ObjectList'
 
 type Props = {
   bucket: string,
@@ -14,21 +15,12 @@ const S3ObjectPage = (props: Props) => {
   return (
     <Layout title={`S3 - ${ props.bucket } | AWS Mock`}>
       <h1>バケット: { props.bucket }</h1>
-      <ul>
-      { props.s3Objects.map( s3Object => (
-        <li key={s3Object.Key}>
-          <p>
-            <Link href={{
-              pathname: '/s3/[bucket]/[[...keys]]',
-              query: { bucket: props.bucket, keys: s3Object.Key.split('/') }
-            }}>
-              <a>{s3Object.DisplayObjectName}</a>
-            </Link>
-            { ` ${s3Object.Size} ${s3Object.LastModified}` }
-            </p>
-        </li>
-      ))}
-      </ul>
+      {props.s3Objects.length > 0 &&
+        <S3ObjectList bucket={props.bucket} s3Objects={props.s3Objects} />
+      }
+      {props.s3Objects.length == 0 &&
+        <S3ObjectDetail bucket={props.bucket} />
+      }
     </Layout>
   )
 }
