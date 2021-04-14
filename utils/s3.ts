@@ -17,10 +17,10 @@ export const getObjectList = async (bucket:string, prefix:string = '') => {
   const filterPrefix = prefix.length === 0? '' : prefix + '/'
   const s3Objects:S3Object[] = response.Contents!.map( content => {
     return {
-        Key: content.Key!,
-        DisplayObjectName: content.Key!.replace(filterPrefix, ''),
-        Size: content.Size!,
-        LastModified: content.LastModified!.toLocaleString()
+      Key: content.Key!,
+      DisplayObjectName: content.Key!.replace(filterPrefix, ''),
+      Size: content.Size!,
+      LastModified: content.LastModified!.toLocaleString()
     }
   })
   const filteredS3Objects = s3Objects.filter(s3Object => {
