@@ -22,7 +22,7 @@ const NewS3BucketPage = () => {
     const requestBody:S3Bucket = {
       Name: bucketName
     }
-    const response = await fetch('/api/s3/new', {
+    const response = await fetch('/api/s3/new/bucket', {
       'method': 'POST',
       'body': JSON.stringify(requestBody)
     })

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { S3 } from '../../../utils/aws-sdk-client'
-import { S3Bucket } from '../../../interfaces/s3'
+import { S3 } from '../../../../utils/aws-sdk-client'
+import { S3Bucket } from '../../../../interfaces/s3'
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
   const body:S3Bucket = JSON.parse(req.body)
