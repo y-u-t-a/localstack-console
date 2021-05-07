@@ -1,8 +1,8 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import { useRouter } from 'next/router'
 
-import Layout from '../../components/Layout'
-import { S3Bucket } from '../../interfaces/s3'
+import Layout from '../../../components/Layout'
+import { S3Bucket } from '../../../interfaces/s3'
 
 const NewS3BucketPage = () => {
   const router = useRouter()

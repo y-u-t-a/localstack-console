@@ -17,7 +17,7 @@ const S3Page = () => {
   return (
     <Layout title="S3 | AWS Mock">
       <h1>S3 バケット一覧</h1>
-      <Link href='/s3/new'>
+      <Link href='/s3/new/bucket'>
         <button>バケット作成</button>
       </Link>
       <button onClick={fetchS3Buckets}>再読み込み</button>
