@@ -9,6 +9,7 @@ import S3ObjectList from '../../../components/s3/S3ObjectList'
 const S3ObjectPage = () => {
   const router = useRouter()
   const bucket = router.query.bucket as string
+  const keys = router.query.keys as string[] || []
   const [s3Objects, setS3Objects] = useState<S3Object[]>([])
   const fetchS3Objects = async () => {
     if (router.isReady) {
@@ -29,7 +30,7 @@ const S3ObjectPage = () => {
         <S3ObjectList bucket={bucket} s3Objects={s3Objects} />
       }
       {s3Objects.length == 1 &&
-        <S3ObjectDetail bucket={bucket} />
+        <S3ObjectDetail bucket={bucket} objectKey={keys.join('/')} />
       }
     </Layout>
   )
