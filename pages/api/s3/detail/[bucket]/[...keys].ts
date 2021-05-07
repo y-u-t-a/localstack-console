@@ -12,7 +12,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         const s3ObjectDetail:S3ObjectDetail = await getObjectDetail(bucket, keys.join('/'))
         res.status(200).json(s3ObjectDetail)
       } catch (error) {
-        res.status(500).json({message: error})
+        res.status(500).json(error)
       }
       break
     default:
