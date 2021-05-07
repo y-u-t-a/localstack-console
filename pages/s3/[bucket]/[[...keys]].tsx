@@ -25,10 +25,10 @@ const S3ObjectPage = () => {
   return (
     <Layout title={`S3 - ${ bucket } | AWS Mock`}>
       <h1>バケット: { bucket }</h1>
-      {s3Objects.length > 0 &&
+      {s3Objects.length != 1 &&
         <S3ObjectList bucket={bucket} s3Objects={s3Objects} />
       }
-      {s3Objects.length == 0 &&
+      {s3Objects.length == 1 &&
         <S3ObjectDetail bucket={bucket} />
       }
     </Layout>
