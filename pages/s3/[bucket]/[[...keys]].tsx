@@ -8,12 +8,12 @@ import S3ObjectList from '../../../components/s3/S3ObjectList'
 
 const S3ObjectPage = () => {
   const router = useRouter()
-  const bucket = router.query['bucket'] as string
+  const bucket = router.query.bucket as string
   const [s3Objects, setS3Objects] = useState<S3Object[]>([])
   const fetchS3Objects = async () => {
     if (router.isReady) {
-      const bucket = router.query['bucket'] as string
-      const keys = router.query['keys'] as string[] || []
+      const bucket = router.query.bucket as string
+      const keys = router.query.keys as string[] || []
       const response = await fetch(`/api/s3/list/${bucket}/${keys.join('/')}`)
       const body = await response.json()
       setS3Objects(body)
