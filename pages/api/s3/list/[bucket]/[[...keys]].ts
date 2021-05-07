@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { S3Object } from '../../../../interfaces/s3'
-import { getObjectList } from '../../../../utils/s3'
+import { S3Object } from '../../../../../interfaces/s3'
+import { getObjectList } from '../../../../../utils/s3'
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
   switch (req.method) {
