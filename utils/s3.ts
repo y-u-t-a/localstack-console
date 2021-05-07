@@ -1,5 +1,5 @@
 import { S3 } from './aws-sdk-client'
-import { S3Bucket, S3Object } from '../interfaces/s3'
+import { S3Bucket, S3Object, S3ObjectDetail } from '../interfaces/s3'
 
 export const getBucketList = async () => {
   const response = await S3.listBuckets().promise()
@@ -30,4 +30,16 @@ export const getObjectList = async (bucket:string, prefix:string = '') => {
       && s3Object.Key.replace(filterPrefix, '').match(/\/.+/g) == null
   })
   return filteredS3Objects
+}
+
+export const getObjectDetail = async (bucket:string, key:string) => {
+  const response = await S3.getObject({
+    Bucket: bucket,
+    Key: key
+  }).promise()
+  const s3ObjectDetail:S3ObjectDetail = {
+    Key: key,
+    LastModified: response.LastModified!.toLocaleString()
+  }
+  return s3ObjectDetail
 }
