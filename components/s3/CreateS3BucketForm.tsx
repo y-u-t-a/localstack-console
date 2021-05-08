@@ -1,4 +1,10 @@
-import { Dialog, DialogContent, DialogActions, Button } from "@material-ui/core"
+import {
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Button,
+  DialogTitle,
+} from "@material-ui/core"
 import { MouseEventHandler } from "react"
 
 type Props = {
@@ -7,10 +13,11 @@ type Props = {
 }
 
 const CreateS3BucketFormDialog = (props:Props) => {
+
   return (
     <Dialog open={props.open}>
+      <DialogTitle>バケット作成</DialogTitle>
       <DialogContent>
-        <h3>バケット作成</h3>
         <input />
       </DialogContent>
       <DialogActions>
