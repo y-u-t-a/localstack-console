@@ -15,13 +15,13 @@ type Props = {
 }
 
 const CreateS3BucketFormDialog = (props:Props) => {
-  const [bucketName, setbucketName] = useState('')
+  const [bucketName, setBucketName] = useState('')
   const [error, setError] = useState('')
   const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
     switch (event.target.name) {
       case 'bucket-name':
         setError('')
-        setbucketName(event.target.value);
+        setBucketName(event.target.value);
         break;
       default:
         break
