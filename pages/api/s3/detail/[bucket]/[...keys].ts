@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { S3ObjectDetail } from '../../../../../interfaces/s3'
+import { S3Object } from '../../../../../interfaces/s3'
 import { getObjectDetail } from '../../../../../utils/s3'
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
@@ -9,7 +9,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       try {
         const bucket = req.query.bucket as string
         const keys = req.query.keys as string[] || []
-        const s3ObjectDetail:S3ObjectDetail = await getObjectDetail(bucket, keys.join('/'))
+        const s3ObjectDetail:S3Object = await getObjectDetail(bucket, keys.join('/'))
         res.status(200).json(s3ObjectDetail)
       } catch (error) {
         res.status(500).json(error)

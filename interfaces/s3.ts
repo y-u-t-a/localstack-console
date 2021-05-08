@@ -9,8 +9,3 @@ export type S3Object = {
   Size: number,
   LastModified: string,
 }
-
-export type S3ObjectDetail = {
-  Key: string,
-  LastModified: string,
-}
