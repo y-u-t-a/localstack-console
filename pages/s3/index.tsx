@@ -2,10 +2,17 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import Layout from '../../components/Layout'
+import CreateS3BucketFormDialog from '../../components/s3/CreateS3BucketForm'
 import { S3Bucket } from '../../interfaces/s3'
 
 const S3Page = () => {
   const [s3Buckets, setS3Buckets] = useState<S3Bucket[]>([])
+  const [openDialog, setOpenDialog] = useState(false)
+  const openDialogForm = () => setOpenDialog(true)
+  const closeDialogForm = () => {
+    setOpenDialog(false)
+    fetchS3Buckets() // 作成したバケットを表示するために再読み込みする
+  }
   const fetchS3Buckets = async () => {
     const response = await fetch('/api/s3')
     const body = await response.json()
@@ -17,8 +24,10 @@ const S3Page = () => {
   return (
     <Layout title="S3 | AWS Mock">
       <h1>S3 バケット一覧</h1>
+      <button onClick={openDialogForm}>バケット作成</button>
+      <CreateS3BucketFormDialog open={openDialog} closeHandler={closeDialogForm}/>
       <Link href='/s3/new/bucket'>
-        <button>バケット作成</button>
+        <button>旧バケット作成</button>
       </Link>
       <button onClick={fetchS3Buckets}>再読み込み</button>
       <ul>
