@@ -13,16 +13,20 @@ type Props = {
 }
 
 const CreateS3BucketFormDialog = (props:Props) => {
+  const createBucket = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log("バケット作成")
+    props.closeHandler(event)
+  }
 
   return (
     <Dialog open={props.open}>
       <DialogTitle>バケット作成</DialogTitle>
       <DialogContent>
-        <input />
+        <input autoFocus />
       </DialogContent>
       <DialogActions>
         <Button onClick={props.closeHandler}>キャンセル</Button>
-        <Button color='primary' onClick={props.closeHandler}>作成</Button>
+        <Button color='primary' onClick={(event) => createBucket(event)}>作成</Button>
       </DialogActions>
     </Dialog>
   )
