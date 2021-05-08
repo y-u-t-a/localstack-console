@@ -26,9 +26,6 @@ const S3Page = () => {
       <h1>S3 バケット一覧</h1>
       <button onClick={openDialogForm}>バケット作成</button>
       <CreateS3BucketFormDialog open={openDialog} closeHandler={closeDialogForm}/>
-      <Link href='/s3/new/bucket'>
-        <button>旧バケット作成</button>
-      </Link>
       <button onClick={fetchS3Buckets}>再読み込み</button>
       <ul>
       {s3Buckets.map((s3Bucket) => (
