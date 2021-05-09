@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
+import { Button } from '@material-ui/core'
 
 import CreateS3FolderForm from '../../components/s3/CreateS3FolderForm'
 import { S3Object } from '../../interfaces/s3'
@@ -21,7 +22,7 @@ const S3ObjectList = (props:Props) => {
 
   return (
     <>
-      <button onClick={openDialogForm}>フォルダ作成</button>
+      <Button variant="contained" onClick={openDialogForm}>フォルダ作成</Button>
       <CreateS3FolderForm
         open={openDialog}
         closeHandler={closeDialogForm}

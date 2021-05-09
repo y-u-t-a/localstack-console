@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { Button } from '@material-ui/core'
 
 import Layout from '../../components/Layout'
 import CreateS3BucketFormDialog from '../../components/s3/CreateS3BucketForm'
@@ -24,9 +25,10 @@ const S3Page = () => {
   return (
     <Layout title="S3 | AWS Mock">
       <h1>S3 バケット一覧</h1>
-      <button onClick={openDialogForm}>バケット作成</button>
+      <Button variant="contained" onClick={openDialogForm}>バケット作成</Button>
       <CreateS3BucketFormDialog open={openDialog} closeHandler={closeDialogForm}/>
-      <button onClick={fetchS3Buckets}>再読み込み</button>
+      {' '}
+      <Button variant="contained" onClick={fetchS3Buckets}>再読み込み</Button>
       <ul>
       {s3Buckets.map((s3Bucket) => (
         <li key={s3Bucket.Name}>
