@@ -9,10 +9,10 @@ import { S3Bucket } from '../../interfaces/s3'
 
 const S3Page = () => {
   const [s3Buckets, setS3Buckets] = useState<S3Bucket[]>([])
-  const [openDialog, setOpenDialog] = useState(false)
-  const openDialogForm = () => setOpenDialog(true)
-  const closeDialogForm = () => {
-    setOpenDialog(false)
+  const [openCreateBucketDialog, setOpenCreateBucketDialog] = useState(false)
+  const openCreateBucketDialogForm = () => setOpenCreateBucketDialog(true)
+  const closeCreateBucketDialogForm = () => {
+    setOpenCreateBucketDialog(false)
     fetchS3Buckets() // 作成したバケットを表示するために再読み込みする
   }
   const fetchS3Buckets = async () => {
@@ -28,8 +28,8 @@ const S3Page = () => {
   return (
     <Layout title="S3 | AWS Mock">
       <h1>S3 バケット一覧</h1>
-      <Button variant="contained" onClick={openDialogForm}>バケット作成</Button>
-      <CreateS3BucketFormDialog open={openDialog} closeHandler={closeDialogForm}/>
+      <Button variant="contained" onClick={openCreateBucketDialogForm}>バケット作成</Button>
+      <CreateS3BucketFormDialog open={openCreateBucketDialog} closeHandler={closeCreateBucketDialogForm}/>
       {' '}
       <Button variant="contained" onClick={fetchS3Buckets}>再読み込み</Button>
       {' '}
