@@ -5,6 +5,7 @@ import { S3Bucket } from '../../interfaces/s3'
 
 type Props = {
   s3Buckets: S3Bucket[]
+  selectHandler: Function
 }
 
 const S3BucketList = (props:Props) => {
@@ -41,7 +42,15 @@ const S3BucketList = (props:Props) => {
 
   return (
     <div style={{ height: 550, width: '100%', marginTop: 10 }}>
-      <DataGrid rows={rows} columns={columns} pageSize={50} checkboxSelection />
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={50}
+        checkboxSelection
+        onSelectionModelChange={(newSelection) => {
+          props.selectHandler(newSelection.selectionModel)
+        }}
+      />
     </div>
   )
 }
