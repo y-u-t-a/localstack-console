@@ -9,6 +9,7 @@ import { S3Bucket } from '../../interfaces/s3'
 
 const S3Page = () => {
   const [s3Buckets, setS3Buckets] = useState<S3Bucket[]>([])
+  // 「バケット作成」の state 管理
   const [openCreateBucketDialog, setOpenCreateBucketDialog] = useState(false)
   const openCreateBucketDialogForm = () => setOpenCreateBucketDialog(true)
   const closeCreateBucketDialogForm = () => {
