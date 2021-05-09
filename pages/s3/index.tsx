@@ -1,9 +1,9 @@
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Button } from '@material-ui/core'
 
 import Layout from '../../components/Layout'
 import CreateS3BucketFormDialog from '../../components/s3/CreateS3BucketForm'
+import S3BucketList from '../../components/s3/S3BucketList'
 import { S3Bucket } from '../../interfaces/s3'
 
 const S3Page = () => {
@@ -29,21 +29,7 @@ const S3Page = () => {
       <CreateS3BucketFormDialog open={openDialog} closeHandler={closeDialogForm}/>
       {' '}
       <Button variant="contained" onClick={fetchS3Buckets}>再読み込み</Button>
-      <ul>
-      {s3Buckets.map((s3Bucket) => (
-        <li key={s3Bucket.Name}>
-          <p>
-            <Link href={{
-              pathname: '/s3/[bucket]',
-              query: { bucket: s3Bucket.Name }
-            }}>
-              <a>{s3Bucket.Name}</a>
-            </Link>
-            {" " + s3Bucket.CreationDate}
-          </p>
-        </li>
-      ))}
-      </ul>
+      <S3BucketList s3Buckets={s3Buckets} />
     </Layout>
   )
 }
