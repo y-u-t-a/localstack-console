@@ -5,6 +5,7 @@ import { S3Object } from '../../interfaces/s3'
 type Props = {
   bucket: string
   s3Objects: S3Object[]
+  prefix: string
 }
 
 const S3ObjectList = (props:Props) => {

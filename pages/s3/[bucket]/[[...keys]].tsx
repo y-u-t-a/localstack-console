@@ -9,6 +9,7 @@ import S3ObjectList from '../../../components/s3/S3ObjectList'
 const S3ObjectPage = () => {
   const router = useRouter()
   const bucket = router.query.bucket as string
+  const keys = router.query.keys as string[] || []
   const [s3Objects, setS3Objects] = useState<S3Object[]>([])
   const [s3Object, setS3Object] = useState<S3Object>()
   const [loading, setLoading] = useState<boolean>(true)
@@ -42,7 +43,7 @@ const S3ObjectPage = () => {
     <Layout title={`S3 - ${ bucket } | AWS Mock`}>
       <h1>バケット: { bucket }</h1>
       {!loading && !s3Object && // 苦し紛れだがオブジェクト詳細が取得できたか否かでリストを表示するか判断
-        <S3ObjectList bucket={bucket} s3Objects={s3Objects} />
+        <S3ObjectList bucket={bucket} s3Objects={s3Objects} prefix={keys.join('/')} />
       }
       {!loading && s3Object &&
         <S3ObjectDetail s3Object={s3Object} />
