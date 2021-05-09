@@ -8,6 +8,7 @@ type Props = {
   bucket: string
   s3Objects: S3Object[]
   prefix: string
+  reloadHandler: Function
 }
 
 const S3ObjectList = (props:Props) => {
@@ -15,6 +16,7 @@ const S3ObjectList = (props:Props) => {
   const openDialogForm = () => setOpenDialog(true)
   const closeDialogForm = () => {
     setOpenDialog(false)
+    props.reloadHandler()
   }
 
   return (

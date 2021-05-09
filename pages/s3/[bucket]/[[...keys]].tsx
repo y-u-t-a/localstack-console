@@ -43,7 +43,12 @@ const S3ObjectPage = () => {
     <Layout title={`S3 - ${ bucket } | AWS Mock`}>
       <h1>バケット: { bucket }</h1>
       {!loading && !s3Object && // 苦し紛れだがオブジェクト詳細が取得できたか否かでリストを表示するか判断
-        <S3ObjectList bucket={bucket} s3Objects={s3Objects} prefix={keys.join('/')} />
+        <S3ObjectList
+          bucket={bucket}
+          s3Objects={s3Objects}
+          prefix={keys.join('/')}
+          reloadHandler={fetchS3Objects}
+        />
       }
       {!loading && s3Object &&
         <S3ObjectDetail s3Object={s3Object} />
