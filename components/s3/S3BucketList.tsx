@@ -32,13 +32,13 @@ const S3BucketList = (props:Props) => {
       width: 250
     },
   ]
-  
   const rows:GridRowsProp = props.s3Buckets.map(bucket => {
     return {
       id: bucket.Name,
       bucketCreationDate: bucket.CreationDate
     }
   })
+
   return (
     <div style={{ height: 550, width: '100%' }}>
       <DataGrid rows={rows} columns={columns} pageSize={50} checkboxSelection />
