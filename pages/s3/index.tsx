@@ -31,8 +31,6 @@ const S3Page = () => {
       <Button variant="contained" onClick={openCreateBucketDialogForm}>バケット作成</Button>
       <CreateS3BucketFormDialog open={openCreateBucketDialog} closeHandler={closeCreateBucketDialogForm}/>
       {' '}
-      <Button variant="contained" onClick={fetchS3Buckets}>再読み込み</Button>
-      {' '}
       <Button
         variant='contained'
         color='secondary'
