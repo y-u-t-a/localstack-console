@@ -40,7 +40,7 @@ const S3BucketList = (props:Props) => {
   })
 
   return (
-    <div style={{ height: 550, width: '100%' }}>
+    <div style={{ height: 550, width: '100%', marginTop: 10 }}>
       <DataGrid rows={rows} columns={columns} pageSize={50} checkboxSelection />
     </div>
   )
