@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { S3Object } from '../../interfaces/s3'
 
 type Props = {
-  bucket: string,
-  s3Objects: S3Object[],
+  bucket: string
+  s3Objects: S3Object[]
 }
 
 const S3ObjectList = (props:Props) => {

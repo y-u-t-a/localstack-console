@@ -1,7 +1,7 @@
 import { S3Object } from '../../interfaces/s3'
 
 type Props = {
-  s3Object: S3Object,
+  s3Object: S3Object
 }
 
 const S3ObjectDetail = (props:Props) => {
