@@ -27,7 +27,7 @@ const CreateS3BucketFormDialog = (props:Props) => {
         break
     }
   }
-  const createBucket = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const requestBody:S3Bucket = {
       Name: bucketName
     }
@@ -52,7 +52,7 @@ const CreateS3BucketFormDialog = (props:Props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.closeHandler}>キャンセル</Button>
-        <Button color='primary' onClick={(event) => createBucket(event)}>作成</Button>
+        <Button color='primary' onClick={(event) => handleSubmit(event)}>作成</Button>
       </DialogActions>
     </Dialog>
   )
