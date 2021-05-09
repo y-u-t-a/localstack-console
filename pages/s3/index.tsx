@@ -32,7 +32,7 @@ const S3Page = () => {
         variant="contained"
         onClick={openCreateBucketDialogForm}
       >バケット作成</Button>
-      <CreateS3BucketFormDialog
+      <CreateS3BucketFormDialog // 「バケット作成」をクリックしたときに表示するダイアログ
         open={openCreateBucketDialog}
         closeHandler={closeCreateBucketDialogForm}
       />
