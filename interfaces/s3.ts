@@ -9,3 +9,9 @@ export type S3Object = {
   Size: number
   LastModified: string
 }
+
+export type CreateS3FolderApiRequest = {
+  bucketName: string
+  prefix: string
+  folderName: string
+}
