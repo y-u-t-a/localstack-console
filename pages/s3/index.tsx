@@ -28,8 +28,14 @@ const S3Page = () => {
   return (
     <Layout title="S3 | AWS Mock">
       <h1>S3 バケット一覧</h1>
-      <Button variant="contained" onClick={openCreateBucketDialogForm}>バケット作成</Button>
-      <CreateS3BucketFormDialog open={openCreateBucketDialog} closeHandler={closeCreateBucketDialogForm}/>
+      <Button
+        variant="contained"
+        onClick={openCreateBucketDialogForm}
+      >バケット作成</Button>
+      <CreateS3BucketFormDialog
+        open={openCreateBucketDialog}
+        closeHandler={closeCreateBucketDialogForm}
+      />
       {' '}
       <Button
         variant='contained'
