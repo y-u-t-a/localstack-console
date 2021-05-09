@@ -40,7 +40,7 @@ const S3Page = () => {
       <Button
         variant='contained'
         color='secondary'
-        disabled={selectionBucket.length == 0}
+        disabled={selectionBucket.length == 0} // チェックボックスが選択されている時だけ有効
       >バケット削除</Button>
       <S3BucketList
         s3Buckets={s3Buckets}
