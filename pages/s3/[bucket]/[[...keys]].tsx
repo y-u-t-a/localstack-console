@@ -21,7 +21,12 @@ const S3ObjectPage = () => {
         setS3Object(await response.json())
       } else {
         response = await fetch(`/api/s3/list/${bucket}/${keys.join('/')}`)
-        setS3Objects(await response.json())
+        if (response.ok) {
+          setS3Objects(await response.json())
+        } else {
+          // 存在しないバケットが指定された場合、S3 のトップページへ移動
+          router.push('/s3')
+        }
       }
       setLoading(false)
     }
