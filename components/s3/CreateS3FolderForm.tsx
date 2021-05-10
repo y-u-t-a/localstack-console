@@ -29,7 +29,7 @@ const CreateS3FolderForm = (props:Props) => {
         break
     }
   }
-  const createFolder = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const requestBody:CreateS3FolderApiRequest = {
       bucketName: props.bucketName,
       prefix: props.prefix,
@@ -57,7 +57,7 @@ const CreateS3FolderForm = (props:Props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.closeHandler}>キャンセル</Button>
-        <Button color='primary' onClick={(event) => createFolder(event)}>作成</Button>
+        <Button color='primary' onClick={(event) => handleSubmit(event)}>作成</Button>
       </DialogActions>
     </Dialog>
   )
