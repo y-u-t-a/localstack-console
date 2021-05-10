@@ -12,7 +12,7 @@ const S3BucketList = (props:Props) => {
   const columns:GridColumns = [
     {
       field: 'id', // id という名前の列は必須
-      headerName: 'バケット名',
+      headerName: 'バケット',
       width: 250,
       type: 'string',
       renderCell: (params: GridCellParams) => { // バケット名をリンクでレンダリングする
