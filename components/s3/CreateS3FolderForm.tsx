@@ -35,7 +35,6 @@ const CreateS3FolderForm = (props:Props) => {
       prefix: props.prefix,
       folderName: folderName
     }
-    console.log(requestBody)
     const response = await fetch('/api/s3/new/folder', {
       'method': 'POST',
       'body': JSON.stringify(requestBody)
