@@ -11,7 +11,7 @@ import { S3Bucket } from "../../interfaces/s3"
 
 type Props = {
   open: boolean
-  closeHandler: MouseEventHandler
+  closeHandler: Function
 }
 
 const CreateS3BucketFormDialog = (props:Props) => {
@@ -27,7 +27,7 @@ const CreateS3BucketFormDialog = (props:Props) => {
         break
     }
   }
-  const handleSubmit = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = async () => {
     const requestBody:S3Bucket = {
       Name: bucketName
     }
@@ -36,7 +36,7 @@ const CreateS3BucketFormDialog = (props:Props) => {
       'body': JSON.stringify(requestBody)
     })
     if (response.ok) {
-      props.closeHandler(event)
+      props.closeHandler()
     } else {
       const responseBody = await response.json()
       setError(responseBody.message)
@@ -51,8 +51,8 @@ const CreateS3BucketFormDialog = (props:Props) => {
         <p>{error}</p>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.closeHandler}>キャンセル</Button>
-        <Button color='primary' onClick={(event) => handleSubmit(event)}>作成</Button>
+        <Button onClick={() => props.closeHandler()}>キャンセル</Button>
+        <Button color='primary' onClick={handleSubmit}>作成</Button>
       </DialogActions>
     </Dialog>
   )
