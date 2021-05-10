@@ -5,7 +5,7 @@ import {
   Button,
   DialogTitle,
 } from "@material-ui/core"
-import { ChangeEvent, MouseEventHandler, useState } from "react"
+import { ChangeEvent, useState } from "react"
 
 import { S3Bucket } from "../../interfaces/s3"
 
