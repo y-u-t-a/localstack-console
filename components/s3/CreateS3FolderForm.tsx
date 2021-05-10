@@ -5,13 +5,13 @@ import {
   Button,
   DialogTitle,
 } from "@material-ui/core"
-import { ChangeEvent, MouseEventHandler, useState } from "react"
+import { ChangeEvent, useState } from "react"
 
 import { CreateS3FolderApiRequest } from "../../interfaces/s3"
 
 type Props = {
   open: boolean
-  closeHandler: MouseEventHandler
+  closeHandler: Function
   bucketName: string
   prefix: string
 }
@@ -29,7 +29,7 @@ const CreateS3FolderForm = (props:Props) => {
         break
     }
   }
-  const handleSubmit = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = async () => {
     const requestBody:CreateS3FolderApiRequest = {
       bucketName: props.bucketName,
       prefix: props.prefix,
@@ -40,7 +40,7 @@ const CreateS3FolderForm = (props:Props) => {
       'body': JSON.stringify(requestBody)
     })
     if (response.ok) {
-      props.closeHandler(event)
+      props.closeHandler()
     } else {
       const responseBody = await response.json()
       setError(responseBody.message)
@@ -55,8 +55,8 @@ const CreateS3FolderForm = (props:Props) => {
         <p>{error}</p>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.closeHandler}>キャンセル</Button>
-        <Button color='primary' onClick={(event) => handleSubmit(event)}>作成</Button>
+        <Button onClick={() => props.closeHandler()}>キャンセル</Button>
+        <Button color='primary' onClick={handleSubmit}>作成</Button>
       </DialogActions>
     </Dialog>
   )
