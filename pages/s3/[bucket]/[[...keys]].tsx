@@ -16,18 +16,35 @@ const S3ObjectPage = () => {
   const [s3Object, setS3Object] = useState<S3Object>()
   // 画面読み込みの state 管理
   const [loading, setLoading] = useState<boolean>(true)
-  const fetchS3Objects = async () => {
+  // データフェッチ関数
+  const fetchS3ObjectDetail = async (bucket:string, key:string): Promise<S3Object | undefined> => {
+    const response = await fetch(`/api/s3/detail/${bucket}/${key}`)
+    if (response.ok) {
+      return await response.json()
+    } else {
+      return undefined
+    }
+  }
+  const fetchS3Objects = async (bucket:string, key:string): Promise<S3Object[]> => {
+    const response = await fetch(`/api/s3/list/${bucket}/${key}`)
+    if (response.ok) {
+      return await response.json()
+    } else {
+      throw Error('存在しないバケットが指定された')
+    }
+  }
+  const fetchData = async () => {
     if (router.isReady) {
       const bucket = router.query.bucket as string
       const keys = router.query.keys as string[] || []
-      let response = await fetch(`/api/s3/detail/${bucket}/${keys.join('/')}`)
-      if (response.ok) {
-        setS3Object(await response.json())
+      const objectDetail = await fetchS3ObjectDetail(bucket, keys.join('/'))
+      if (objectDetail) {
+        setS3Object(objectDetail)
       } else {
-        response = await fetch(`/api/s3/list/${bucket}/${keys.join('/')}`)
-        if (response.ok) {
-          setS3Objects(await response.json())
-        } else {
+        try {
+          const objectList = await fetchS3Objects(bucket, keys.join('/'))
+          setS3Objects(objectList)
+        } catch (error) {
           // 存在しないバケットが指定された場合、S3 のトップページへ移動
           router.push('/s3')
         }
@@ -39,7 +56,7 @@ const S3ObjectPage = () => {
     setLoading(true)
     setS3Object(undefined)
     setS3Objects([])
-    fetchS3Objects()
+    fetchData()
   }, [router.query]) // URL が変更されるたびに実行する
 
   return (
@@ -50,7 +67,7 @@ const S3ObjectPage = () => {
           bucket={bucket}
           s3Objects={s3Objects}
           prefix={keys.join('/')}
-          reloadHandler={fetchS3Objects}
+          reloadHandler={fetchData}
         />
       }
       {!loading && s3Object &&
