@@ -15,7 +15,7 @@ const S3ObjectPage = () => {
   // オブジェクト詳細の state 管理
   const [s3Object, setS3Object] = useState<S3Object>()
   // 画面読み込みの state 管理
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loaded, setLoaded] = useState<boolean>(false)
   // データフェッチ関数
   const fetchS3ObjectDetail = async (bucket:string, key:string) => {
     const response = await fetch(`/api/s3/detail/${bucket}/${key}`)
@@ -44,11 +44,11 @@ const S3ObjectPage = () => {
         // 存在しないバケットが指定された場合、S3 のトップページへ移動
         router.push('/s3')
       }
-      setLoading(false)
+      setLoaded(true)
     }
   }
   useEffect(() => {
-    setLoading(true)
+    setLoaded(false)
     setS3Object(undefined)
     setS3Objects([])
     fetchData()
@@ -57,7 +57,7 @@ const S3ObjectPage = () => {
   return (
     <Layout title={`S3 - ${ bucket } | AWS Mock`}>
       <h1>バケット: { bucket }</h1>
-      {!loading && !s3Object && // 苦し紛れだがオブジェクト詳細が取得できたか否かでリストを表示するか判断
+      {loaded && !s3Object && // 苦し紛れだがオブジェクト詳細が取得できたか否かでリストを表示するか判断
         <S3ObjectList
           bucket={bucket}
           s3Objects={s3Objects}
@@ -65,7 +65,7 @@ const S3ObjectPage = () => {
           reloadHandler={fetchData}
         />
       }
-      {!loading && s3Object &&
+      {loaded && s3Object &&
         <S3ObjectDetail s3Object={s3Object} />
       }
     </Layout>
