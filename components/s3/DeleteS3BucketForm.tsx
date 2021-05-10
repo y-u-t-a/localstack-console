@@ -7,6 +7,8 @@ import {
 } from "@material-ui/core"
 import { MouseEventHandler } from "react"
 
+import { S3Bucket } from '../../interfaces/s3'
+
 type Props = {
   open: boolean
   selectionS3Buckets: string[]
@@ -15,8 +17,17 @@ type Props = {
 
 const DeleteS3BucketFormDialog = (props:Props) => {
   const handleSubmit = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    
-    props.closeHandler(event)
+    const reqestBody:S3Bucket[] = props.selectionS3Buckets.map(selectionS3Bucket => {
+      return {
+        Name: selectionS3Bucket
+      }
+    })
+    await fetch('/api/s3', {
+      'method': 'DELETE',
+      'body': JSON.stringify(reqestBody)
+    })
+    // バケット削除後すぐにデータフェッチすると削除したバケットも取得してしまうので 500ms 待つ
+    setTimeout(props.closeHandler, 500, event)
   }
 
   return (
