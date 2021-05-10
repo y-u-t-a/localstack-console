@@ -10,8 +10,11 @@ const S3ObjectPage = () => {
   const router = useRouter()
   const bucket = router.query.bucket as string
   const keys = router.query.keys as string[] || []
+  // オブジェクト一覧の state 管理
   const [s3Objects, setS3Objects] = useState<S3Object[]>([])
+  // オブジェクト詳細の state 管理
   const [s3Object, setS3Object] = useState<S3Object>()
+  // 画面読み込みの state 管理
   const [loading, setLoading] = useState<boolean>(true)
   const fetchS3Objects = async () => {
     if (router.isReady) {
