@@ -73,9 +73,6 @@ const S3ObjectList = (props:Props) => {
         bucketName={props.bucket}
         prefix={props.prefix}
       />
-      {props.s3Objects.length == 0 &&
-        <p>オブジェクトがありません</p>
-      }
       <div style={{ height: 550, width: '100%', marginTop: 10 }}>
         <DataGrid
           rows={rows}
