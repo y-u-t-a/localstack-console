@@ -1,6 +1,13 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { Button } from '@material-ui/core'
+import {
+  DataGrid,
+  GridColumns,
+  GridRowsProp,
+  GridCellParams,
+  GridRowId
+} from '@material-ui/data-grid'
 
 import CreateS3FolderForm from '../../components/s3/CreateS3FolderForm'
 import { S3Object } from '../../interfaces/s3'
@@ -19,6 +26,43 @@ const S3ObjectList = (props:Props) => {
     setOpenDialog(false)
     props.reloadHandler()
   }
+  const [selectionObject, setSelectionObject] = useState<GridRowId[]>([])
+  const columns:GridColumns = [
+    {
+      field: 'id', // id という名前の列は必須
+      headerName: 'オブジェクト',
+      width: 250,
+      type: 'string',
+      renderCell: (params: GridCellParams) => { // オブジェクト名をリンクでレンダリングする
+        const s3ObjectName = params.value as string
+        return (
+          <Link href={{
+            pathname: '/s3/[bucket]/[[...keys]]',
+            query: { bucket: props.bucket, keys: s3ObjectName.split('/') }
+          }}>
+            <a>{s3ObjectName}</a>
+          </Link>
+        )
+      }
+    },
+    {
+      field: 'size',
+      headerName: 'サイズ',
+      width: 100
+    },
+    {
+      field: 'lastModified',
+      headerName: '最終更新日時',
+      width: 250
+    },
+  ]
+  const rows:GridRowsProp = props.s3Objects.map(object => {
+    return {
+      id: object.DisplayObjectName,
+      size: object.Size,
+      lastModified: object.LastModified
+    }
+  })
 
   return (
     <>
@@ -32,21 +76,17 @@ const S3ObjectList = (props:Props) => {
       {props.s3Objects.length == 0 &&
         <p>オブジェクトがありません</p>
       }
-      <ul>
-      {props.s3Objects.map( s3Object => (
-        <li key={s3Object.Key}>
-          <p>
-            <Link href={{
-              pathname: '/s3/[bucket]/[[...keys]]',
-              query: { bucket: props.bucket, keys: s3Object.Key.split('/') }
-            }}>
-              <a>{s3Object.DisplayObjectName}</a>
-            </Link>
-            {` ${s3Object.Size} ${s3Object.LastModified}`}
-            </p>
-        </li>
-      ))}
-      </ul>
+      <div style={{ height: 550, width: '100%', marginTop: 10 }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={50}
+          checkboxSelection
+          onSelectionModelChange={(newSelection) => {
+            setSelectionObject(newSelection.selectionModel)
+          }}
+        />
+      </div>
     </>
   )
 }
