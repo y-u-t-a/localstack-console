@@ -4,10 +4,10 @@ import { S3v2 } from '../../../../utils/aws-sdk-client'
 import { S3Bucket } from '../../../../interfaces/s3'
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
-  const body:S3Bucket = JSON.parse(req.body)
   switch (req.method) {
     case 'POST':
       try {
+        const body:S3Bucket = JSON.parse(req.body)
         await S3v2.createBucket({Bucket: body.Name}).promise()
         res.status(200).end()
       } catch (error) {
