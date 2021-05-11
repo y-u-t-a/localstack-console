@@ -4,7 +4,7 @@ import { GridRowId } from '@material-ui/data-grid'
 
 import Layout from '../../components/Layout'
 import CreateS3BucketFormDialog from '../../components/s3/CreateS3BucketForm'
-import DeleteS3BucketForm from '../../components/s3/DeleteS3BucketForm'
+import DeleteS3BucketFormDialog from '../../components/s3/DeleteS3BucketForm'
 import S3BucketList from '../../components/s3/S3BucketList'
 import { S3Bucket } from '../../interfaces/s3'
 
@@ -57,7 +57,7 @@ const S3Page = () => {
         onClick={openDeleteBucketDialogForm}
       >バケット削除</Button>
       {openDeleteBucketDialog &&
-        <DeleteS3BucketForm // 「バケット削除」をクリックしたときに表示するダイアログ
+        <DeleteS3BucketFormDialog // 「バケット削除」をクリックしたときに表示するダイアログ
           open={openDeleteBucketDialog}
           closeHandler={closeDeleteBucketDialogForm}
           selectionS3Buckets={selectionBucket as string[]}

@@ -9,7 +9,7 @@ import {
   GridRowId
 } from '@material-ui/data-grid'
 
-import CreateS3FolderForm from '../../components/s3/CreateS3FolderForm'
+import CreateS3FolderFormDialog from '../../components/s3/CreateS3FolderForm'
 import { S3Object } from '../../interfaces/s3'
 
 type Props = {
@@ -68,7 +68,7 @@ const S3ObjectList = (props:Props) => {
     <>
       <Button variant="contained" onClick={openDialogForm}>フォルダ作成</Button>
       {closeDialogForm &&
-        <CreateS3FolderForm
+        <CreateS3FolderFormDialog
           open={openDialog}
           closeHandler={closeDialogForm}
           bucketName={props.bucket}

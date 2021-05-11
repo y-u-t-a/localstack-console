@@ -16,7 +16,7 @@ type Props = {
   prefix: string
 }
 
-const CreateS3FolderForm = (props:Props) => {
+const CreateS3FolderFormDialog = (props:Props) => {
   const [folderName, setFolderName] = useState('')
   const [error, setError] = useState('')
   const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
@@ -62,4 +62,4 @@ const CreateS3FolderForm = (props:Props) => {
   )
 }
 
-export default CreateS3FolderForm
+export default CreateS3FolderFormDialog
