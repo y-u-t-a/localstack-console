@@ -67,12 +67,14 @@ const S3ObjectList = (props:Props) => {
   return (
     <>
       <Button variant="contained" onClick={openDialogForm}>フォルダ作成</Button>
-      <CreateS3FolderForm
-        open={openDialog}
-        closeHandler={closeDialogForm}
-        bucketName={props.bucket}
-        prefix={props.prefix}
-      />
+      {closeDialogForm &&
+        <CreateS3FolderForm
+          open={openDialog}
+          closeHandler={closeDialogForm}
+          bucketName={props.bucket}
+          prefix={props.prefix}
+        />
+      }
       <div style={{ height: 550, width: '100%', marginTop: 10 }}>
         <DataGrid
           rows={rows}

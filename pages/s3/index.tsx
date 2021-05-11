@@ -43,10 +43,12 @@ const S3Page = () => {
         variant="contained"
         onClick={openCreateBucketDialogForm}
       >バケット作成</Button>
-      <CreateS3BucketFormDialog // 「バケット作成」をクリックしたときに表示するダイアログ
-        open={openCreateBucketDialog}
-        closeHandler={closeCreateBucketDialogForm}
-      />
+      {openCreateBucketDialog &&
+        <CreateS3BucketFormDialog // 「バケット作成」をクリックしたときに表示するダイアログ
+          open={openCreateBucketDialog}
+          closeHandler={closeCreateBucketDialogForm}
+        />
+      }
       {' '}
       <Button
         variant='contained'
@@ -54,11 +56,13 @@ const S3Page = () => {
         disabled={selectionBucket.length == 0} // チェックボックスが選択されている時だけ有効
         onClick={openDeleteBucketDialogForm}
       >バケット削除</Button>
-      <DeleteS3BucketForm // 「バケット削除」をクリックしたときに表示するダイアログ
-        open={openDeleteBucketDialog}
-        closeHandler={closeDeleteBucketDialogForm}
-        selectionS3Buckets={selectionBucket as string[]}
-      />
+      {openDeleteBucketDialog &&
+        <DeleteS3BucketForm // 「バケット削除」をクリックしたときに表示するダイアログ
+          open={openDeleteBucketDialog}
+          closeHandler={closeDeleteBucketDialogForm}
+          selectionS3Buckets={selectionBucket as string[]}
+        />
+      }
       <S3BucketList
         s3Buckets={s3Buckets}
         selectHandler={setSelectionBucket}
