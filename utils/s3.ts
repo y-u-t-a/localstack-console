@@ -1,4 +1,4 @@
-import { S3v2, S3v3Client } from './aws-sdk-client'
+import { S3v3Client } from './aws-sdk-client'
 import { ListBucketsCommand, ListObjectsV2Command, GetObjectCommand } from '@aws-sdk/client-s3'
 import { S3Bucket, S3Object } from '../interfaces/s3'
 
@@ -12,18 +12,14 @@ export const getBucketList = async () => {
 }
 
 export const getObjectList = async (bucket:string, prefix:string = '') => {
-  // v3 だと 500 エラーになるので一旦コメントアウトしてる
-  // const command = new ListObjectsV2Command({
-  //   Bucket: bucket,
-  //   Prefix: prefix,
-  // })
-  // const response = await S3v3Client.send(command)
-  const response = await S3v2.listObjectsV2({
+  const command = new ListObjectsV2Command({
     Bucket: bucket,
-    Prefix: prefix
-  }).promise()
+    Prefix: prefix,
+  })
+  const response = await S3v3Client.send(command)
+  const contents = response.Contents || []
   const filterPrefix = prefix.length === 0? '' : prefix + '/'
-  const s3Objects:S3Object[] = response.Contents!.map( content => {
+  const s3Objects:S3Object[] = contents.map( content => {
     return {
       Key: content.Key!,
       DisplayObjectName: content.Key!.replace(filterPrefix, ''),
