@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { getBucketList } from '../../../utils/s3'
-import { S3 } from '../../../utils/aws-sdk-client'
+import { S3v2 } from '../../../utils/aws-sdk-client'
 import { S3Bucket } from '../../../interfaces/s3'
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
@@ -18,7 +18,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       try {
         const body:S3Bucket[] = JSON.parse(req.body)
         body.map(async (bucket) => {
-          await S3.deleteBucket({
+          await S3v2.deleteBucket({
             Bucket: bucket.Name
           }).promise()
         })

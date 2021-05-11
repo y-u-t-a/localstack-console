@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { S3 } from '../../../../utils/aws-sdk-client'
+import { S3v2 } from '../../../../utils/aws-sdk-client'
 import { CreateS3FolderApiRequest } from '../../../../interfaces/s3'
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
@@ -11,7 +11,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         // 末尾をスラッシュにすることでフォルダになる
         const key = body.prefix.length === 0?
           `${body.folderName}/` : `${body.prefix}/${body.folderName}/`
-        await S3.putObject({
+        await S3v2.putObject({
           Bucket: body.bucketName,
           Key: key
         }).promise()
