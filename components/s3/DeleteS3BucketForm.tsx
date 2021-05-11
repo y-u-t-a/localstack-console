@@ -5,6 +5,7 @@ import {
   Button,
   DialogTitle,
 } from "@material-ui/core"
+import { useState } from "react"
 
 import { S3Bucket } from '../../interfaces/s3'
 
@@ -15,16 +16,22 @@ type Props = {
 }
 
 const DeleteS3BucketFormDialog = (props:Props) => {
+  const [error, setError] = useState('')
   const handleSubmit = async () => {
     const reqestBody:S3Bucket = {
       Name: props.selectionS3Bucket
     }
-    await fetch('/api/s3', {
+    const response = await fetch('/api/s3', {
       'method': 'DELETE',
       'body': JSON.stringify(reqestBody)
     })
-    // バケット削除後すぐにデータフェッチすると削除したバケットも取得してしまうので 500ms 待つ
-    setTimeout(props.closeHandler, 500)
+    if (response.ok) {
+      // バケット削除後すぐにデータフェッチすると削除したバケットも取得してしまうので 500ms 待つ
+      setTimeout(props.closeHandler, 500)
+    } else {
+      const responseBody = await response.json()
+      setError(responseBody.message)
+    }
   }
 
   return (
@@ -33,6 +40,7 @@ const DeleteS3BucketFormDialog = (props:Props) => {
       <DialogContent>
         以下のバケットを削除します
         <p>{props.selectionS3Bucket}</p>
+        <p>{error}</p>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => props.closeHandler()}>キャンセル</Button>
