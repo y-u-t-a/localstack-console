@@ -10,6 +10,7 @@ import { S3Bucket } from '../../interfaces/s3'
 
 const S3Page = () => {
   const [s3Buckets, setS3Buckets] = useState<S3Bucket[]>([])
+  const [loaded, setLoaded] = useState<boolean>(false)
   // 「バケット作成」の state 管理
   const [openCreateBucketDialog, setOpenCreateBucketDialog] = useState(false)
   const openCreateBucketDialogForm = () => setOpenCreateBucketDialog(true)
@@ -22,13 +23,16 @@ const S3Page = () => {
   const openDeleteBucketDialogForm = () => setDeleteBucketDialog(true)
   const closeDeleteBucketDialogForm = () => {
     setDeleteBucketDialog(false)
+    setSelectionBucket([])
     fetchS3Buckets()
   }
   // バケットリストを取得
   const fetchS3Buckets = async () => {
+    setLoaded(false)
     const response = await fetch('/api/s3')
     const body = await response.json()
     setS3Buckets(body)
+    setLoaded(true)
   }
   // チェックボックスの state 管理
   const [selectionBucket, setSelectionBucket] = useState<GridRowId[]>([])
@@ -63,10 +67,12 @@ const S3Page = () => {
           selectionS3Bucket={selectionBucket[0] as string}
         />
       }
-      <S3BucketList
-        s3Buckets={s3Buckets}
-        selectHandler={setSelectionBucket}
-      />
+      {loaded && // ロードが完了したら表示
+        <S3BucketList
+          s3Buckets={s3Buckets}
+          selectHandler={setSelectionBucket}
+        />
+      }
     </Layout>
   )
 }
