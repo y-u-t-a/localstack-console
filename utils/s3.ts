@@ -1,5 +1,5 @@
 import { S3v2, S3v3Client } from './aws-sdk-client'
-import { ListBucketsCommand } from '@aws-sdk/client-s3'
+import { ListBucketsCommand, ListObjectsV2Command, GetObjectCommand } from '@aws-sdk/client-s3'
 import { S3Bucket, S3Object } from '../interfaces/s3'
 
 export const getBucketList = async () => {
@@ -12,6 +12,12 @@ export const getBucketList = async () => {
 }
 
 export const getObjectList = async (bucket:string, prefix:string = '') => {
+  // v3 だと 500 エラーになるので一旦コメントアウトしてる
+  // const command = new ListObjectsV2Command({
+  //   Bucket: bucket,
+  //   Prefix: prefix,
+  // })
+  // const response = await S3v3Client.send(command)
   const response = await S3v2.listObjectsV2({
     Bucket: bucket,
     Prefix: prefix
@@ -35,10 +41,11 @@ export const getObjectList = async (bucket:string, prefix:string = '') => {
 }
 
 export const getObjectDetail = async (bucket:string, key:string) => {
-  const response = await S3v2.getObject({
+  const command = new GetObjectCommand({
     Bucket: bucket,
     Key: key
-  }).promise()
+  })
+  const response = await S3v3Client.send(command)
   const s3Object:S3Object = {
     Key: key,
     DisplayObjectName: key,
