@@ -1,10 +1,10 @@
-import { S3v3Client } from './aws-sdk-client'
+import { S3 } from './aws-sdk-client'
 import { ListBucketsCommand, ListObjectsV2Command, GetObjectCommand } from '@aws-sdk/client-s3'
 import { S3Bucket, S3Object } from '../interfaces/s3'
 
 export const getBucketList = async () => {
   const command = new ListBucketsCommand({})
-  const response = await S3v3Client.send(command)
+  const response = await S3.send(command)
   const s3Buckets:S3Bucket[] = response.Buckets!.map( bucket => {
     return { Name:bucket.Name!, CreationDate: bucket.CreationDate!.toLocaleString() }
   })
@@ -16,7 +16,7 @@ export const getObjectList = async (bucket:string, prefix:string = '') => {
     Bucket: bucket,
     Prefix: prefix,
   })
-  const response = await S3v3Client.send(command)
+  const response = await S3.send(command)
   const contents = response.Contents || []
   const filterPrefix = prefix.length === 0? '' : prefix + '/'
   const s3Objects:S3Object[] = contents.map( content => {
@@ -41,7 +41,7 @@ export const getObjectDetail = async (bucket:string, key:string) => {
     Bucket: bucket,
     Key: key
   })
-  const response = await S3v3Client.send(command)
+  const response = await S3.send(command)
   const s3Object:S3Object = {
     Key: key,
     DisplayObjectName: key,

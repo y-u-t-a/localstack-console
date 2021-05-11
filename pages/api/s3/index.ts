@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { getBucketList } from '../../../utils/s3'
-import { S3v3Client } from '../../../utils/aws-sdk-client'
+import { S3 } from '../../../utils/aws-sdk-client'
 import { DeleteBucketCommand } from '@aws-sdk/client-s3'
 import { S3Bucket } from '../../../interfaces/s3'
 
@@ -22,7 +22,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
           const command = new DeleteBucketCommand({
             Bucket: bucket.Name
           })
-          await S3v3Client.send(command)
+          await S3.send(command)
         })
         res.status(200).end()
       } catch (error) {
