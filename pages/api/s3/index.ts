@@ -16,14 +16,12 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       }
       break
     case 'DELETE':
+      const body:S3Bucket = JSON.parse(req.body)
       try {
-        const body:S3Bucket[] = JSON.parse(req.body)
-        body.map(async (bucket) => {
-          const command = new DeleteBucketCommand({
-            Bucket: bucket.Name
-          })
-          await S3.send(command)
+        const command = new DeleteBucketCommand({
+          Bucket: body.Name
         })
+        await S3.send(command)
         res.status(200).end()
       } catch (error) {
         res.status(500).json({message: error.toString()})

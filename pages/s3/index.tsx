@@ -60,7 +60,7 @@ const S3Page = () => {
         <DeleteS3BucketFormDialog // 「バケット削除」をクリックしたときに表示するダイアログ
           open={openDeleteBucketDialog}
           closeHandler={closeDeleteBucketDialogForm}
-          selectionS3Buckets={selectionBucket as string[]}
+          selectionS3Bucket={selectionBucket[0] as string}
         />
       }
       <S3BucketList

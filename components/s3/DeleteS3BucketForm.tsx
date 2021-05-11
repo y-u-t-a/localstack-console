@@ -10,17 +10,15 @@ import { S3Bucket } from '../../interfaces/s3'
 
 type Props = {
   open: boolean
-  selectionS3Buckets: string[]
+  selectionS3Bucket: string
   closeHandler: Function
 }
 
 const DeleteS3BucketFormDialog = (props:Props) => {
   const handleSubmit = async () => {
-    const reqestBody:S3Bucket[] = props.selectionS3Buckets.map(selectionS3Bucket => {
-      return {
-        Name: selectionS3Bucket
-      }
-    })
+    const reqestBody:S3Bucket = {
+      Name: props.selectionS3Bucket
+    }
     await fetch('/api/s3', {
       'method': 'DELETE',
       'body': JSON.stringify(reqestBody)
@@ -34,13 +32,7 @@ const DeleteS3BucketFormDialog = (props:Props) => {
       <DialogTitle>バケット削除</DialogTitle>
       <DialogContent>
         以下のバケットを削除します
-        <ul>
-          {props.selectionS3Buckets.map(s3Bucket => (
-            <li key={s3Bucket}>
-              <p>{s3Bucket}</p>
-            </li>
-          ))}
-        </ul>
+        <p>{props.selectionS3Bucket}</p>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => props.closeHandler()}>キャンセル</Button>
