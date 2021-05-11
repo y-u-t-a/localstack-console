@@ -26,7 +26,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         })
         res.status(200).end()
       } catch (error) {
-        res.status(500).json({message: error.code})
+        res.status(500).json({message: error.toString()})
       }
       break
     default:
