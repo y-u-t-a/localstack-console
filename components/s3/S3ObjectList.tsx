@@ -20,9 +20,10 @@ type Props = {
 }
 
 const S3ObjectList = (props:Props) => {
+  // フォルダ作成の state 管理
   const [openCreateFolderDialog, setOpenCreateFolderDialog] = useState(false)
-  const openDialogForm = () => setOpenCreateFolderDialog(true)
-  const closeDialogForm = () => {
+  const openCreateFolderDialogForm = () => setOpenCreateFolderDialog(true)
+  const closeCreateFolderDialogForm = () => {
     setOpenCreateFolderDialog(false)
     props.reloadHandler()
   }
@@ -66,11 +67,11 @@ const S3ObjectList = (props:Props) => {
 
   return (
     <>
-      <Button variant="contained" onClick={openDialogForm}>フォルダ作成</Button>
-      {closeDialogForm &&
+      <Button variant="contained" onClick={openCreateFolderDialogForm}>フォルダ作成</Button>
+      {closeCreateFolderDialogForm &&
         <CreateS3FolderFormDialog
           open={openCreateFolderDialog}
-          closeHandler={closeDialogForm}
+          closeHandler={closeCreateFolderDialogForm}
           bucketName={props.bucket}
           prefix={props.prefix}
         />
