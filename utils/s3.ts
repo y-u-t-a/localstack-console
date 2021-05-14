@@ -1,5 +1,11 @@
 import { S3 } from './aws-sdk-client'
-import { ListBucketsCommand, ListObjectsV2Command, GetObjectCommand } from '@aws-sdk/client-s3'
+import {
+  ListBucketsCommand,
+  ListObjectsV2Command,
+  GetObjectCommand,
+  DeleteObjectCommand,
+  DeleteBucketCommand
+} from '@aws-sdk/client-s3'
 import { S3Bucket, S3Object } from '../interfaces/s3'
 
 export const getBucketList = async () => {
@@ -49,4 +55,33 @@ export const getObjectDetail = async (bucket:string, key:string) => {
     LastModified: response.LastModified!.toLocaleString()
   }
   return s3Object
+}
+
+const clearS3Bucket = async (bucket:string) => {
+  const command = new ListObjectsV2Command({
+    Bucket: bucket
+  })
+  const response = await S3.send(command)
+  const objects = response.Contents || []
+  objects.forEach(async object => {
+    const command = new DeleteObjectCommand({
+      Bucket: bucket,
+      Key: object.Key
+    })
+    await S3.send(command)
+  })
+}
+
+export const deleteBucket = async (bucket:string) => {
+  try {
+    await clearS3Bucket(bucket)
+    // オブジェクトが削除されるのを 500ms 待つ
+    await new Promise(resolve => setTimeout(resolve, 500))
+    const command = new DeleteBucketCommand({
+      Bucket: bucket
+    })
+    await S3.send(command)
+  } catch(error) {
+    throw error
+  }
 }

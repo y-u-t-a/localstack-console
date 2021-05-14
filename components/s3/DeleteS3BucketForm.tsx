@@ -38,7 +38,8 @@ const DeleteS3BucketFormDialog = (props:Props) => {
     <Dialog open={props.open}>
       <DialogTitle>バケット削除</DialogTitle>
       <DialogContent>
-        以下のバケットを削除します
+        以下のバケットを削除します<br/>
+        ※ バケット内のオブジェクトを全て削除します
         <p>{props.selectionS3Bucket}</p>
         <p>{error}</p>
       </DialogContent>

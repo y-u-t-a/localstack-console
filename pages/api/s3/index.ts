@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { getBucketList } from '../../../utils/s3'
-import { S3 } from '../../../utils/aws-sdk-client'
-import { DeleteBucketCommand } from '@aws-sdk/client-s3'
+import { getBucketList, deleteBucket } from '../../../utils/s3'
 import { S3Bucket } from '../../../interfaces/s3'
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
@@ -18,10 +16,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     case 'DELETE':
       const body:S3Bucket = JSON.parse(req.body)
       try {
-        const command = new DeleteBucketCommand({
-          Bucket: body.Name
-        })
-        await S3.send(command)
+        await deleteBucket(body.Name)
         res.status(200).end()
       } catch (error) {
         res.status(500).json({message: error.toString()})
