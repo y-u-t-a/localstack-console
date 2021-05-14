@@ -20,10 +20,10 @@ type Props = {
 }
 
 const S3ObjectList = (props:Props) => {
-  const [openDialog, setOpenDialog] = useState(false)
-  const openDialogForm = () => setOpenDialog(true)
+  const [openCreateFolderDialog, setOpenCreateFolderDialog] = useState(false)
+  const openDialogForm = () => setOpenCreateFolderDialog(true)
   const closeDialogForm = () => {
-    setOpenDialog(false)
+    setOpenCreateFolderDialog(false)
     props.reloadHandler()
   }
   const [selectionObject, setSelectionObject] = useState<GridRowId[]>([])
@@ -69,7 +69,7 @@ const S3ObjectList = (props:Props) => {
       <Button variant="contained" onClick={openDialogForm}>フォルダ作成</Button>
       {closeDialogForm &&
         <CreateS3FolderFormDialog
-          open={openDialog}
+          open={openCreateFolderDialog}
           closeHandler={closeDialogForm}
           bucketName={props.bucket}
           prefix={props.prefix}
