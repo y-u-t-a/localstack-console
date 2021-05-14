@@ -75,7 +75,7 @@ const clearS3Bucket = async (bucket:string) => {
 export const deleteBucket = async (bucket:string) => {
   try {
     await clearS3Bucket(bucket)
-    // オブジェクトが削除されるのを 500ms 待つ
+    // オブジェクトが削除が反映されるまで 500ms 待つ
     await new Promise(resolve => setTimeout(resolve, 500))
     const command = new DeleteBucketCommand({
       Bucket: bucket
