@@ -5,7 +5,7 @@ import {
   Button,
   DialogTitle,
 } from "@material-ui/core"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useState, FormEvent } from "react"
 
 import { S3Bucket } from "../../interfaces/s3"
 
@@ -42,13 +42,19 @@ const CreateS3BucketFormDialog = (props:Props) => {
       setError(responseBody.message)
     }
   }
+  const formSubmit = (event:FormEvent) => {
+    event.preventDefault()
+    handleSubmit()
+  }
 
   return (
     <Dialog open={props.open}>
       <DialogTitle>バケット作成</DialogTitle>
       <DialogContent>
-        <input autoFocus name='bucket-name' onChange={handleChange} />
-        <p>{error}</p>
+        <form onSubmit={formSubmit}>
+          <input autoFocus name='bucket-name' onChange={handleChange} />
+          <p>{error}</p>
+        </form>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => props.closeHandler()}>キャンセル</Button>
