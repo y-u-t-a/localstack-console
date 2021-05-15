@@ -92,6 +92,17 @@ const S3ObjectList = (props:Props) => {
       }
       {' '}
       <Button
+        variant="contained"
+        component="label"
+      >
+        ファイルアップロード
+        <input
+          type="file"
+          hidden
+        />
+      </Button>
+      {' '}
+      <Button
         variant='contained'
         color='secondary'
         disabled={selectionObject.length === 0} // チェックボックスが選択されている時だけ有効
