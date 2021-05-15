@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { deleteObjectByKey, getObjectList, getObjectDetail } from '../../../../utils/s3'
+import { deleteObjectByKey, getObjectList, getObjectDetail, uploadObject } from '../../../../utils/s3'
 import { S3Object, S3ObjectPageApiResponse } from '../../../../interfaces/s3'
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
@@ -17,6 +17,18 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         }
         res.status(200).json(responseBody)
       } catch (error) {
+        res.status(500).json(error)
+      }
+      break
+    case 'POST':
+      try {
+        const bucket = req.query.bucket as string
+        const keys = req.query.keys as string[] || []
+        const file:File = req.body
+        await uploadObject(bucket, keys.join('/'), file)
+        res.status(200).json({})
+      } catch (error) {
+        console.log(error)
         res.status(500).json(error)
       }
       break

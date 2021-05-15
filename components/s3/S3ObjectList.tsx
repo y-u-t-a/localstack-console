@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { Button } from '@material-ui/core'
 import {
   DataGrid,
@@ -75,6 +75,19 @@ const S3ObjectList = (props:Props) => {
       lastModified: object.LastModified
     }
   })
+  // ファイルアップロード
+  const handleChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files || event.target.files.length == 0) {
+      return // ファイルを取得できない場合は処理終了
+    }
+    const file = event.target.files.item(0)!
+    const key = props.prefix.length === 0? file.name : `${props.prefix}/${file.name}`
+    await fetch(`/api/s3/${props.bucket}/${key}`, {
+      method: 'POST',
+      body: file
+    })
+    props.reloadHandler()
+  }
 
   return (
     <>
@@ -99,6 +112,7 @@ const S3ObjectList = (props:Props) => {
         <input
           type="file"
           hidden
+          onChange={handleChangeFile}
         />
       </Button>
       {' '}

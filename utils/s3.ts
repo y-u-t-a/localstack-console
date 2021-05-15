@@ -4,7 +4,8 @@ import {
   ListObjectsV2Command,
   GetObjectCommand,
   DeleteObjectCommand,
-  DeleteBucketCommand
+  DeleteBucketCommand,
+  PutObjectCommand
 } from '@aws-sdk/client-s3'
 import { S3Bucket, S3Object } from '../interfaces/s3'
 
@@ -101,6 +102,19 @@ export const deleteObjectByKey = async (bucket:string, key:string) => {
     const command = new DeleteObjectCommand({
       Bucket: bucket,
       Key: key
+    })
+    await S3.send(command)
+  } catch (error) {
+    throw error
+  }
+}
+
+export const uploadObject = async (bucket:string, key:string, file:File) => {
+  try {
+    const command = new PutObjectCommand({
+      Bucket: bucket,
+      Key: key,
+      Body: file
     })
     await S3.send(command)
   } catch (error) {
