@@ -16,10 +16,10 @@ const BreadcrumbNavigation = () => {
       <Link key='-1' href='/'>Home</Link>
       {pathArray.map((elm, index, array) => {
         if (index + 1 === array.length) {
-          return <Typography key={index} color="textPrimary">{elm}</Typography>
+          return <Typography key={index} color="textPrimary">{decodeURIComponent(elm)}</Typography>
         } else {
           const href = '/' + array.slice(0, index + 1).join('/')
-          return <Link key={index} href={href}>{elm}</Link>
+          return <Link key={index} href={href}>{decodeURIComponent(elm)}</Link>
         }
       })}
     </Breadcrumbs>
