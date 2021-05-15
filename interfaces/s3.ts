@@ -4,10 +4,11 @@ export type S3Bucket = {
 }
 
 export type S3Object = {
+  Bucket: string
   Key: string
-  DisplayObjectName: string
-  Size: number
-  LastModified: string
+  DisplayObjectName?: string
+  Size?: number
+  LastModified?: string
 }
 
 export type CreateS3FolderApiRequest = {

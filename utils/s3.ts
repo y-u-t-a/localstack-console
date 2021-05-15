@@ -27,6 +27,7 @@ export const getObjectList = async (bucket:string, prefix:string = '') => {
   const filterPrefix = prefix.length === 0? '' : prefix + '/'
   const s3Objects:S3Object[] = contents.map( content => {
     return {
+      Bucket: bucket,
       Key: content.Key!,
       DisplayObjectName: content.Key!.replace(filterPrefix, ''),
       Size: content.Size!,
@@ -49,6 +50,7 @@ export const getObjectDetail = async (bucket:string, key:string) => {
   })
   const response = await S3.send(command)
   const s3Object:S3Object = {
+    Bucket: bucket,
     Key: key,
     DisplayObjectName: key,
     Size: response.ContentLength!,
