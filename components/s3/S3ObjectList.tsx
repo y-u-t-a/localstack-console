@@ -26,6 +26,7 @@ const S3ObjectList = (props:Props) => {
   const openCreateFolderDialogForm = () => setOpenCreateFolderDialog(true)
   const closeCreateFolderDialogForm = () => {
     setOpenCreateFolderDialog(false)
+    setSelectionObject([])
     props.reloadHandler()
   }
   // オブジェクト削除の state 管理
@@ -33,6 +34,7 @@ const S3ObjectList = (props:Props) => {
   const openDeleteObjectDialogForm = () => setDeleteObjectDialog(true)
   const closeDeleteObjectDialogForm = () => {
     setDeleteObjectDialog(false)
+    setSelectionObject([])
     props.reloadHandler()
   }
   // DataGrid の定義
