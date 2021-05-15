@@ -68,7 +68,7 @@ const S3ObjectList = (props:Props) => {
   return (
     <>
       <Button variant="contained" onClick={openCreateFolderDialogForm}>フォルダ作成</Button>
-      {closeCreateFolderDialogForm &&
+      {openCreateFolderDialog &&
         <CreateS3FolderFormDialog
           open={openCreateFolderDialog}
           closeHandler={closeCreateFolderDialogForm}
