@@ -18,45 +18,53 @@ export const getBucketList = async () => {
 }
 
 export const getObjectList = async (bucket:string, prefix:string = '') => {
-  const command = new ListObjectsV2Command({
-    Bucket: bucket,
-    Prefix: prefix,
-  })
-  const response = await S3.send(command)
-  const contents = response.Contents || []
-  const filterPrefix = prefix.length === 0? '' : prefix + '/'
-  const s3Objects:S3Object[] = contents.map( content => {
-    return {
+  try {
+    const command = new ListObjectsV2Command({
       Bucket: bucket,
-      Key: content.Key!,
-      DisplayObjectName: content.Key!.replace(filterPrefix, ''),
-      Size: content.Size!,
-      LastModified: content.LastModified!.toLocaleString()
-    }
-  })
-  const filteredS3Objects = s3Objects.filter(s3Object => {
-    // 「prefix に至るフォルダ自身」と「prefix を除いた Key に / の後に文字列が続く Key」を除外することで
-    // prefix と同一レベルのオブジェクトをフィルタリングできる
-    return s3Object.Key != filterPrefix
-      && s3Object.Key.replace(filterPrefix, '').match(/\/.+/g) == null
-  })
-  return filteredS3Objects
+      Prefix: prefix,
+    })
+    const response = await S3.send(command)
+    const contents = response.Contents || []
+    const filterPrefix = prefix.length === 0? '' : prefix + '/'
+    const s3Objects:S3Object[] = contents.map( content => {
+      return {
+        Bucket: bucket,
+        Key: content.Key!,
+        DisplayObjectName: content.Key!.replace(filterPrefix, ''),
+        Size: content.Size!,
+        LastModified: content.LastModified!.toLocaleString()
+      }
+    })
+    const filteredS3Objects = s3Objects.filter(s3Object => {
+      // 「prefix に至るフォルダ自身」と「prefix を除いた Key に / の後に文字列が続く Key」を除外することで
+      // prefix と同一レベルのオブジェクトをフィルタリングできる
+      return s3Object.Key != filterPrefix
+        && s3Object.Key.replace(filterPrefix, '').match(/\/.+/g) == null
+    })
+    return filteredS3Objects
+  } catch (error) {
+    throw error
+  }
 }
 
 export const getObjectDetail = async (bucket:string, key:string) => {
-  const command = new GetObjectCommand({
-    Bucket: bucket,
-    Key: key
-  })
-  const response = await S3.send(command)
-  const s3Object:S3Object = {
-    Bucket: bucket,
-    Key: key,
-    DisplayObjectName: key,
-    Size: response.ContentLength!,
-    LastModified: response.LastModified!.toLocaleString()
+  try {
+    const command = new GetObjectCommand({
+      Bucket: bucket,
+      Key: key
+    })
+    const response = await S3.send(command)
+    const s3Object:S3Object = {
+      Bucket: bucket,
+      Key: key,
+      DisplayObjectName: key,
+      Size: response.ContentLength!,
+      LastModified: response.LastModified!.toLocaleString()
+    }
+    return s3Object
+  } catch (error) {
+    return undefined
   }
-  return s3Object
 }
 
 const clearS3Bucket = async (bucket:string) => {

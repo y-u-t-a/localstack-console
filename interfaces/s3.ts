@@ -16,3 +16,8 @@ export type CreateS3FolderApiRequest = {
   prefix: string
   folderName: string
 }
+
+export type S3ObjectPageApiResponse = {
+  s3ObjectDetail?: S3Object
+  s3ObjectList: S3Object[]
+}
