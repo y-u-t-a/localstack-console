@@ -10,6 +10,7 @@ import {
 } from '@material-ui/data-grid'
 
 import CreateS3FolderFormDialog from '../../components/s3/CreateS3FolderForm'
+import DeleteS3ObjectForm from '../../components/s3/DeleteS3ObjectForm'
 import { S3Object } from '../../interfaces/s3'
 
 type Props = {
@@ -27,6 +28,14 @@ const S3ObjectList = (props:Props) => {
     setOpenCreateFolderDialog(false)
     props.reloadHandler()
   }
+  // オブジェクト削除の state 管理
+  const [openDeleteObjectDialog, setDeleteObjectDialog] = useState(false)
+  const openDeleteObjectDialogForm = () => setDeleteObjectDialog(true)
+  const closeDeleteObjectDialogForm = () => {
+    setDeleteObjectDialog(false)
+    props.reloadHandler()
+  }
+  // DataGrid の定義
   const [selectionObject, setSelectionObject] = useState<GridRowId[]>([])
   const columns:GridColumns = [
     {
@@ -74,6 +83,21 @@ const S3ObjectList = (props:Props) => {
           closeHandler={closeCreateFolderDialogForm}
           bucketName={props.bucket}
           prefix={props.prefix}
+        />
+      }
+      {' '}
+      <Button
+        variant='contained'
+        color='secondary'
+        disabled={selectionObject.length === 0} // チェックボックスが選択されている時だけ有効
+        onClick={openDeleteObjectDialogForm}
+      >オブジェクト削除</Button>
+      {openDeleteObjectDialog &&
+        <DeleteS3ObjectForm
+          open={openDeleteObjectDialog}
+          bucket={props.bucket}
+          selectionS3Objects={selectionObject as string[]}
+          closeHandler={closeDeleteObjectDialogForm}
         />
       }
       <div style={{ height: 550, width: '100%', marginTop: 10 }}>

@@ -87,3 +87,15 @@ export const deleteBucket = async (bucket:string) => {
     throw error
   }
 }
+
+export const deleteObjectByKey = async (bucket:string, key:string) => {
+  try {
+    const command = new DeleteObjectCommand({
+      Bucket: bucket,
+      Key: key
+    })
+    await S3.send(command)
+  } catch (error) {
+    throw error
+  }
+}
