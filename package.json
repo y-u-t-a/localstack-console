@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "dev:mock": "TARGET=mock next",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc"

@@ -11,4 +11,4 @@ const mockConfig:S3ClientConfig = {
   forcePathStyle: true,
 }
 
-export const S3 = new S3Client(process.env.TARGET === 'mock' ? mockConfig : {})
+export const S3 = new S3Client(mockConfig)
