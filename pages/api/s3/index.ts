@@ -10,7 +10,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         const s3Buckets = await getBucketList()
         res.status(200).json(s3Buckets)
       } catch (error) {
-        res.status(500).json(error)
+        res.status(500).json({message: error.toString()})
       }
       break
     case 'DELETE':
