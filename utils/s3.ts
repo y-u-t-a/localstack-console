@@ -121,3 +121,16 @@ export const uploadObject = async (bucket:string, key:string, file:File) => {
     throw error
   }
 }
+
+export const downloadFile = async (bucket:string, key:string) => {
+  try {
+    const command = new GetObjectCommand({
+      Bucket: bucket,
+      Key: key
+    })
+    const response = await S3.send(command)
+    return response.Body!
+  } catch (error) {
+    throw error
+  }
+}
