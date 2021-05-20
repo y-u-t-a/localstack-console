@@ -43,7 +43,7 @@ const S3ObjectList = (props:Props) => {
     {
       field: 'id', // id という名前の列は必須
       headerName: 'オブジェクト',
-      width: 250,
+      width: 400,
       type: 'string',
       renderCell: (params: GridCellParams) => { // オブジェクト名をリンクでレンダリングする
         const s3ObjectName = params.value as string
@@ -60,7 +60,7 @@ const S3ObjectList = (props:Props) => {
     {
       field: 'size',
       headerName: 'サイズ',
-      width: 100
+      width: 150
     },
     {
       field: 'lastModified',
