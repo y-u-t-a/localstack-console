@@ -50,7 +50,10 @@ const S3ObjectList = (props:Props) => {
         return (
           <Link href={{
             pathname: '/s3/[bucket]/[[...keys]]',
-            query: { bucket: props.bucket, keys: s3ObjectName.split('/') }
+            query: {
+              bucket: props.bucket,
+              keys: props.prefix.split('/').concat(s3ObjectName.split('/')).filter(elm => elm.length > 0)
+            }
           }}>
             <a>{s3ObjectName}</a>
           </Link>
