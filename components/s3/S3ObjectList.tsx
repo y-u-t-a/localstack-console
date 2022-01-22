@@ -122,7 +122,7 @@ const S3ObjectList = (props:Props) => {
       <Button
         variant='contained'
         color='secondary'
-        disabled={selectionObject.length === 0} // チェックボックスが選択されている時だけ有効
+        disabled={selectionObject.length === 0} // チェックボックスが選択されていないときは無効
         onClick={openDeleteObjectDialogForm}
       >オブジェクト削除</Button>
       {openDeleteObjectDialog &&
