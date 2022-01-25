@@ -8,7 +8,7 @@ import {
 import { useState } from "react"
 import { useRouter } from 'next/router'
 
-import { S3Object } from '../../interfaces/s3'
+import { S3Object } from '../../../interfaces/s3'
 
 type Props = {
   open: boolean

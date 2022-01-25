@@ -3,9 +3,9 @@ import { Button } from '@material-ui/core'
 import { GridRowId } from '@material-ui/data-grid'
 
 import Layout from '../../components/Layout'
-import CreateS3BucketFormDialog from '../../components/s3/CreateS3BucketForm'
-import DeleteS3BucketFormDialog from '../../components/s3/DeleteS3BucketForm'
-import S3BucketList from '../../components/s3/S3BucketList'
+import CreateS3BucketFormDialog from './_CreateS3BucketForm'
+import DeleteS3BucketFormDialog from './_DeleteS3BucketForm'
+import S3BucketList from './_S3BucketList'
 import { S3Bucket } from '../../interfaces/s3'
 
 const S3Page = () => {

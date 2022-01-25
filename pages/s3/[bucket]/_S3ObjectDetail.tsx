@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core'
 
-import { S3Object } from '../../interfaces/s3'
+import { S3Object } from '../../../interfaces/s3'
 
 type Props = {
   s3Object: S3Object

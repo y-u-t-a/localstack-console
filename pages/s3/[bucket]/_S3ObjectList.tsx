@@ -9,9 +9,9 @@ import {
   GridRowId
 } from '@material-ui/data-grid'
 
-import CreateS3FolderFormDialog from '../../components/s3/CreateS3FolderForm'
-import DeleteS3ObjectForm from '../../components/s3/DeleteS3ObjectForm'
-import { S3Object } from '../../interfaces/s3'
+import CreateS3FolderFormDialog from './_CreateS3FolderForm'
+import DeleteS3ObjectForm from './_DeleteS3ObjectForm'
+import { S3Object } from '../../../interfaces/s3'
 
 type Props = {
   bucket: string

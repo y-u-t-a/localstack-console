@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core"
 import { ChangeEvent, useState, FormEvent } from "react"
 
-import { CreateS3FolderApiRequest } from "../../interfaces/s3"
+import { CreateS3FolderApiRequest } from "../../../interfaces/s3"
 
 type Props = {
   open: boolean

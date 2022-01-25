@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 
 import { S3Object, S3ObjectPageApiResponse } from '../../../interfaces/s3'
 import Layout from '../../../components/Layout'
-import S3ObjectDetail from '../../../components/s3/S3ObjectDetail'
-import S3ObjectList from '../../../components/s3/S3ObjectList'
+import S3ObjectDetail from './_S3ObjectDetail'
+import S3ObjectList from './_S3ObjectList'
 
 const S3ObjectPage = () => {
   const router = useRouter()
